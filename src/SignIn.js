@@ -28,11 +28,6 @@ function Copyright() {
   );
 }
 
-function handleClick(){
-  alert('hi' + count);
-  setCount(count + 1);
-}
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
