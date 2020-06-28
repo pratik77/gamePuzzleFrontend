@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import SignIn from './SignIn.js';
 import Question1 from './Question1';
-import Question2 from './Question2';
+import Question10 from './Question10';
 import SubmissionSection from './SubmissionSection';
 import AdminDashboard from './AdminDashboard';
 import * as serviceWorker from './serviceWorker';
@@ -12,7 +12,7 @@ import ThankYou from './ThankYou';
 var element = React.createElement('h1', { className: 'greeting' }, 'Hello, world!');
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Question10 />
   </React.StrictMode>,
   document.getElementById('root')
 );

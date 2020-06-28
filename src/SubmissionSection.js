@@ -108,11 +108,6 @@ export default function Question1(props) {
                 Submit
               </Button>
               {giveUp}
-              <div className={classes.note}>
-                <Typography>
-                  Answer Format : Submit the correct answer from the options.
-                </Typography>
-              </div>
           </div>
           
         

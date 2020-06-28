@@ -24,6 +24,7 @@ import ArrowRightTwoToneIcon from '@material-ui/icons/ArrowRightTwoTone';
 import Filter1TwoToneIcon from '@material-ui/icons/Filter1TwoTone';
 import Divider from '@material-ui/core/Divider';
 import SubmissionSection from './SubmissionSection';
+import Image from './img/72.jpeg';
 
 function Copyright() {
   return (
@@ -43,12 +44,14 @@ const useStyles = makeStyles((theme) => ({
     height: '100vh',
   },
   image: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
+    backgroundImage: `url(${Image})`,
     backgroundRepeat: 'no-repeat',
     backgroundColor:
       theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
     backgroundSize: 'cover',
-    backgroundPosition: 'center',
+    backgroundPosition: 'fill',
+    width: '58vw',
+    height: '100vh'
   },
   paper: {
     margin: theme.spacing(30, 4, 30, 4),
@@ -97,86 +100,7 @@ export default function Question1(props) {
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
-      <Grid item xs={12} sm={8} md={7}>
-        <div className={classes.paperleft}>
-          <Typography component="h1" variant="h5">
-            Question 7:
-          </Typography>
-          <List className={classes.root}>
-          <ListItem alignItems="center">
-            <ListItemAvatar>
-              <Avatar alt="Turtle" src="/static/images/avatar/4.jpg" />
-            </ListItemAvatar>
-            <ListItemText
-              primary="Turtle"
-            />
-          </ListItem>
-          <Divider variant="inset" component="li" />
-          <ListItem alignItems="center">
-            <ListItemAvatar>
-              <Avatar alt="Pexa" src="/static/images/avatar/2.jpg" />
-            </ListItemAvatar>
-            <ListItemText
-              primary="Pexa"
-            />
-          </ListItem>
-          <Divider variant="inset" component="li"/>
-          <ListItem alignItems="center" >
-            <ListItemAvatar>
-              <Avatar alt="Vue" src="/static/images/avatar/3.jpg" />
-            </ListItemAvatar>
-            <ListItemText
-              primary="Vue"
-              />
-          </ListItem>
-          <Divider variant="inset" component="li" />
-          <ListItem alignItems="center">
-            <ListItemAvatar>
-              <Avatar alt="Toolbox" src="/static/images/avatar/2.jpg" />
-            </ListItemAvatar>
-            <ListItemText
-              primary="Toolbox"
-            />
-          </ListItem>
-          <Divider variant="inset" component="li" />
-          <ListItem alignItems="center">
-            <ListItemAvatar>
-              <Avatar alt="View JS" src="/static/images/avatar/2.jpg" />
-            </ListItemAvatar>
-            <ListItemText
-              primary="View JS"
-            />
-          </ListItem>
-          <Divider variant="inset" component="li" />
-          <ListItem alignItems="center">
-            <ListItemAvatar>
-              <Avatar alt="Mew" src="/static/images/avatar/2.jpg" />
-            </ListItemAvatar>
-            <ListItemText
-              primary="Mew"
-            />
-          </ListItem>
-          <Divider variant="inset" component="li" />
-          <ListItem alignItems="center">
-            <ListItemAvatar>
-              <Avatar alt="Gushi" src="/static/images/avatar/2.jpg" />
-            </ListItemAvatar>
-            <ListItemText
-              primary="Gushi"
-            />
-          </ListItem>
-          <Divider variant="inset" component="li" />
-          <ListItem alignItems="center">
-            <ListItemAvatar>
-              <Avatar alt="Umber" src="/static/images/avatar/2.jpg" />
-            </ListItemAvatar>
-            <ListItemText
-              primary="Umber"
-            />
-          </ListItem>
-        </List>
-        </div>
-        </Grid>
+      <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={4} md={5} component={Paper} elevation={6} square>
         <SubmissionSection giveUp={props.giveUp} onClick={props.onClick} hasError={props.hasError} message={props.message} onChange={props.onChange} onGiveUpClick={props.onGiveUpClick}/>
       </Grid>
