@@ -65,49 +65,20 @@ export default function Question1(props) {
     const classes = useStyles();
     const [dense, setDense] = React.useState(false);
     const [secondary, setSecondary] = React.useState(false);
-    let giveUp;
-    if(props.giveUp === "true"){
-        giveUp = <Button
-        fullWidth
-        variant="contained"
-        color="secondary"
-        className={classes.submit}
-        onClick={props.onGiveUpClick}
-      >
-        Give Up
-      </Button>;
-    }
+    
     return (
       
           <div className={classes.papercenter}>
-            <Typography component="h1" variant="h5">
-              Your Answer
-            </Typography>
             
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="answer"
-                label="Submit your response."
-                name="answer"
-                autoComplete="answer"
-                autoFocus
-                error={props.hasError === "true"}
-                helperText={props.hasError === "true" ? props.message : ''}
-                onChange={props.onChange}
-              />
               <Button
                 fullWidth
                 variant="contained"
-                color="primary"
+                color="secondary"
                 className={classes.submit}
-                onClick={props.onClick}
+                onClick={props.onGoToNextQuestion}
               >
-                SUBMIT
+                GO TO NEXT QUESTION
               </Button>
-              {giveUp}
           </div>
           
         

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import axios from 'axios'
+import Question from './Question';
 import Question1 from './Question1';
 import Question2 from './Question2';
 import Question3 from './Question3';
@@ -25,7 +25,9 @@ import Question9 from './Question9';
 import Question10 from './Question10';
 import ThankYou from './ThankYou';
 import AdminDashboard from './AdminDashboard';
-import { BASE_URL } from './Constants'
+import { BASE_URL, INVALID_ANSWER, CORRECT_ANSWER } from './Constants';
+import { UNSOLVED } from './Constants';
+import Image from './img/1.jpg';
 
 function Copyright() {
   return (
@@ -85,36 +87,15 @@ export default function SignIn() {
   const [gamenameInvalidMsg, setGamenameInvalidMsg] = useState("");
   const [isPinInvalid, setIsPinInvalid] = useState("false");
   const [pinInvalidMsg, setPinInvalidMsg] = useState("");
+  const [actualAnswer, setActualAnswer] = useState("");
 
-  const isInvalidParam = () => {
-    alert("hi");
-    if(gamename.length != 4){
-      setIsGamenameInvalid("true");
-      setGamenameInvalidMsg("Game Id must be 5 digit number");
-      return true;
-    }
-    if(pin.length != 4){
-      setIsPinInvalid("true");
-      setPinInvalidMsg("Pin must be 5 digit number");
-      return true;
-    }
-    let i = 0;
-    for(i = 0 ; i < gamename.length ; i++){
-      if(gamename.charCodeAt(i) < 48 || gamename.charCodeAt(i) > 57){
-        setIsGamenameInvalid("true");
-        setGamenameInvalidMsg("Game Id must be 5 digit number");
-        return true;
-      }
-    }
-    for(i = 0 ; i < pin.length ; i++){
-      if(pin.charCodeAt(i) < 48 || pin.charCodeAt(i) > 57){
-        setIsPinInvalid("true");
-        setPinInvalidMsg("Game Id must be 5 digit number");
-        return true;
-      }
-    }
-    return false;
-  };
+  const handleGetBackToCurrentQuestion = () => {
+    setMessage(UNSOLVED);
+  }
+
+  const handleGoToNextQuestion = () => {
+    setMessage(UNSOLVED);
+  }
 
   const handleOnRefresh = (e) => {
     //console.log(e.target["email"].value);
@@ -198,20 +179,14 @@ export default function SignIn() {
 
   };
 
-  const handleAnswerSubmit = (e) => {
-    //console.log(e.target["email"].value);
-    //alert(e.target["email"].value);
-    //alert(e.target["password"].value);
+  const submitAsync = async() => {
     let args = {
       "questionNum":questionNum,
       "answer":answer,
       "gamename":gamename
     };
     let resp = {};
-    //https://tools.learningcontainer.com/sample-json-file.json
-    //http://127.0.0.1:5000/generateGameName
-    //'https://cors-anywhere.herokuapp.com/'
-    fetch(BASE_URL + '/submitAnswer',{
+    await fetch(BASE_URL + '/submitAnswer',{
       method: "POST",
       dataType: "JSON",
       headers:{
@@ -236,6 +211,53 @@ export default function SignIn() {
     .catch((error) => {
       console.log(error, "catch the hoop")
     });
+  };
+
+  const handleAnswerSubmit = (e) => {
+    //console.log(e.target["email"].value);
+    //alert(e.target["email"].value);
+    //alert(e.target["password"].value);
+    // let args = {
+    //   "questionNum":questionNum,
+    //   "answer":answer,
+    //   "gamename":gamename
+    // };
+    // let resp = {};
+    if(answer != actualAnswer){
+      setMessage(INVALID_ANSWER);
+      
+    }else{
+      setMessage(CORRECT_ANSWER);
+    }
+    submitAsync();
+    //https://tools.learningcontainer.com/sample-json-file.json
+    //http://127.0.0.1:5000/generateGameName
+    //'https://cors-anywhere.herokuapp.com/'
+    // fetch(BASE_URL + '/submitAnswer',{
+    //   method: "POST",
+    //   dataType: "JSON",
+    //   headers:{
+    //     "Content-Type": "application/json; charset=utf-8",
+    //     "Access-Control-Allow-Origin" : BASE_URL + "/*",
+    //     "Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+    //     "Access-Control-Allow-Headers": "Content-Type, Authorization, Access-Control-Allow-Origin",
+    //     "Access-Control-Allow-Credentials": "true"
+    //   },
+    //   body: JSON.stringify(args)
+    // }).then((resp) => {
+    //   return resp.json()
+    // }) 
+    // .then((data) => {
+    //   let respData = data["data"];
+    //   setQuestionNum(respData["nextQuestion"]); 
+    //   setHasError(data["hasError"]);
+    //   setMessage(data["message"]);
+    //   setGiveUpButton(respData["giveUp"])
+
+    // })
+    // .catch((error) => {
+    //   console.log(error, "catch the hoop")
+    // });
     //const data = response.json();
     //console.log(response);
     //const item = response.results;
@@ -252,7 +274,7 @@ export default function SignIn() {
     // }
 
     // Validate gamename and pin
-    if(gamename.length != 4){
+    if(gamename.length > 6){
       setIsGamenameInvalid("true");
       setGamenameInvalidMsg("Game Id must be a 4 digit number");
       return;
@@ -314,6 +336,7 @@ export default function SignIn() {
       setHasError(data["hasError"]);
       setMessage(data["message"]);
       setIsAdmin(respData["isAdmin"]);
+      setActualAnswer(respData["answer"]);
 
     })
     .catch((error) => {
@@ -348,44 +371,57 @@ export default function SignIn() {
     //alert(e.target.value);
     setAnswer(e.target.value);
   }
+
+  // useEffect(() =>{
+  //   (async() => {
+  //     let args = {
+  //       "questionNum":questionNum,
+  //       "answer":answer,
+  //       "gamename":gamename
+  //     };
+  //     let resp = {};
+  //     await fetch(BASE_URL + '/submitAnswer',{
+  //       method: "POST",
+  //       dataType: "JSON",
+  //       headers:{
+  //         "Content-Type": "application/json; charset=utf-8",
+  //         "Access-Control-Allow-Origin" : BASE_URL + "/*",
+  //         "Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+  //         "Access-Control-Allow-Headers": "Content-Type, Authorization, Access-Control-Allow-Origin",
+  //         "Access-Control-Allow-Credentials": "true"
+  //       },
+  //       body: JSON.stringify(args)
+  //     }).then((resp) => {
+  //       return resp.json()
+  //     }) 
+  //     .then((data) => {
+  //       let respData = data["data"];
+  //       setQuestionNum(respData["nextQuestion"]); 
+  //       setHasError(data["hasError"]);
+  //       setMessage(data["message"]);
+  //       setGiveUpButton(respData["giveUp"])
+  
+  //     })
+  //     .catch((error) => {
+  //       console.log(error, "catch the hoop")
+  //     });
+  //   })();
+  // }, []);
+
   if(isAdmin == "true"){
     return <AdminDashboard onRefresh={handleOnRefresh} leaderboard={leaderboard} leaderboard2={leaderboard2} submissionDetails={submissionDetails} />;
   }
+
+  
+
   if(questionNum != 0){
-    if(questionNum == 1)
-      return <Question1 onClick={handleAnswerSubmit} hasError={hasError} message={message} onChange={handleAnswerChange}
-      giveUp={giveUpButton} onGiveUpClick={handleGiveUpClick}/>;
-    else if(questionNum == 2)
-      return <Question2 onClick={handleAnswerSubmit} hasError={hasError} message={message} onChange={handleAnswerChange}
-      giveUp={giveUpButton} onGiveUpClick={handleGiveUpClick}/>;
-    else if(questionNum == 3)
-      return <Question3 onClick={handleAnswerSubmit} hasError={hasError} message={message} onChange={handleAnswerChange}
-      giveUp={giveUpButton} onGiveUpClick={handleGiveUpClick}/>;
-    else if(questionNum == 4)
-      return <Question4 onClick={handleAnswerSubmit} hasError={hasError} message={message} onChange={handleAnswerChange}
-      giveUp={giveUpButton} onGiveUpClick={handleGiveUpClick}/>;
-    else if(questionNum == 5)
-      return <Question5 onClick={handleAnswerSubmit} hasError={hasError} message={message} onChange={handleAnswerChange}
-      giveUp={giveUpButton} onGiveUpClick={handleGiveUpClick}/>;
-    else if(questionNum == 6)
-      return <Question6 onClick={handleAnswerSubmit} hasError={hasError} message={message} onChange={handleAnswerChange}
-      giveUp={giveUpButton} onGiveUpClick={handleGiveUpClick}/>;
-    else if(questionNum == 7)
-      return <Question7 onClick={handleAnswerSubmit} hasError={hasError} message={message} onChange={handleAnswerChange}
-      giveUp={giveUpButton} onGiveUpClick={handleGiveUpClick}/>;
-    else if(questionNum == 8)
-      return <Question8 onClick={handleAnswerSubmit} hasError={hasError} message={message} onChange={handleAnswerChange}
-      giveUp={giveUpButton} onGiveUpClick={handleGiveUpClick}/>;
-    else if(questionNum == 9)
-      return <Question9 onClick={handleAnswerSubmit} hasError={hasError} message={message} onChange={handleAnswerChange}
-      giveUp={giveUpButton} onGiveUpClick={handleGiveUpClick}/>;
-    else if(questionNum == 10)
-      return <Question10 onClick={handleAnswerSubmit} hasError={hasError} message={message} onChange={handleAnswerChange}
-      giveUp={giveUpButton} onGiveUpClick={handleGiveUpClick}/>;
-    else if(questionNum == 11)
-      return <ThankYou onClick={handleAnswerSubmit} hasError={hasError} message={message} onChange={handleAnswerChange}
-      giveUp={giveUpButton} onGiveUpClick={handleGiveUpClick}/>;
+      return <Question onClick={handleAnswerSubmit} hasError={hasError} message={message} onChange={handleAnswerChange}
+      giveUp={giveUpButton} onGiveUpClick={handleGiveUpClick} onGetBackToCurrentQuestion={handleGetBackToCurrentQuestion}
+      onGoToNextQuestion={handleGoToNextQuestion} questionNum={questionNum}/>;
+    
   }
+
+  
 
   return (
     <Container component="main" maxWidth="xs">
@@ -427,7 +463,7 @@ export default function SignIn() {
             margin="normal"
             fullWidth
             name="gamename"
-            label="Game Name (Must be 4 digit number)"
+            label="Employee Id (Max 6 digit number)"
             type="text"
             id="gamename"
             onChange={handleGamenameChange}
