@@ -257,7 +257,7 @@ export default function Question(props) {
   const classImage9 = useStylesImage9();
   const classImage10 = useStylesImage10();
 
-  let questionGrid;
+  let questionGrid = "hello";
   if(props.message == INVALID_ANSWER){
     return <WrongAnswerConfirmationPage onGetBackToCurrentQuestion={props.onGetBackToCurrentQuestion}/>
   }

@@ -88,13 +88,21 @@ export default function SignIn() {
   const [isPinInvalid, setIsPinInvalid] = useState("false");
   const [pinInvalidMsg, setPinInvalidMsg] = useState("");
   const [actualAnswer, setActualAnswer] = useState("");
+  const [giveUpCount, setGiveUpCount] = useState(0);
+  const [currQuestionNumber, setCurrentQuestionNumber] = useState(0);
+  const [remainingQuestionSequence, setRemainingQuestionSequence] = useState({});
+  const [answers, setAnswers] = useState({});
+  const [isFnameInvalid, setIsFnameInvalid] = useState("false");
+  const [fnameInvalidMessage, setFnameInvalidMessage] = useState("");
 
   const handleGetBackToCurrentQuestion = () => {
     setMessage(UNSOLVED);
+    setAnswer("");
   }
 
   const handleGoToNextQuestion = () => {
     setMessage(UNSOLVED);
+    setAnswer("");
   }
 
   const handleOnRefresh = (e) => {
@@ -135,10 +143,7 @@ export default function SignIn() {
 
   };
 
-  const handleGiveUpClick = (e) => {
-    //console.log(e.target["email"].value);
-    //alert(e.target["email"].value);
-    //alert(e.target["password"].value);
+  const giveUpQuestionAsync = async() => {
     let args = {
       "questionNum":questionNum,
       "gamename":gamename
@@ -162,11 +167,11 @@ export default function SignIn() {
       return resp.json()
     }) 
     .then((data) => {
-      let respData = data["data"];
-      setQuestionNum(respData["nextQuestion"]); 
-      setHasError(data["hasError"]);
-      setMessage(data["message"]);
-      setGiveUpButton(respData["giveUp"])
+      // let respData = data["data"];
+      // setQuestionNum(respData["nextQuestion"]); 
+      // setHasError(data["hasError"]);
+      // setMessage(data["message"]);
+      // setGiveUpButton(respData["giveUp"])
 
     })
     .catch((error) => {
@@ -176,10 +181,64 @@ export default function SignIn() {
     //console.log(response);
     //const item = response.results;
     //alert(item);
+  };
+
+  const handleGiveUpClick = (e) => {
+    //console.log(e.target["email"].value);
+    //alert(e.target["email"].value);
+    //alert(e.target["password"].value);
+
+    giveUpQuestionAsync();
+    setMessage(CORRECT_ANSWER);
+    setGiveUpCount(0);
+    setGiveUpButton("false");
+    setCurrentQuestionNumber(currQuestionNumber + 1);
+    setQuestionNum(remainingQuestionSequence[currQuestionNumber + 1]); 
+    setActualAnswer(answers[remainingQuestionSequence[currQuestionNumber + 1]]);
+    setAnswer("");
+    setHasError("false");
+    
+    // let args = {
+    //   "questionNum":questionNum,
+    //   "gamename":gamename
+    // };
+    // let resp = {};
+    // //https://tools.learningcontainer.com/sample-json-file.json
+    // //http://127.0.0.1:5000/generateGameName
+    // //'https://cors-anywhere.herokuapp.com/'
+    // fetch(BASE_URL + '/giveUpQuestion',{
+    //   method: "POST",
+    //   dataType: "JSON",
+    //   headers:{
+    //     "Content-Type": "application/json; charset=utf-8",
+    //     "Access-Control-Allow-Origin" : BASE_URL + "/*",
+    //     "Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+    //     "Access-Control-Allow-Headers": "Content-Type, Authorization, Access-Control-Allow-Origin",
+    //     "Access-Control-Allow-Credentials": "true"
+    //   },
+    //   body: JSON.stringify(args)
+    // }).then((resp) => {
+    //   return resp.json()
+    // }) 
+    // .then((data) => {
+    //   let respData = data["data"];
+    //   setQuestionNum(respData["nextQuestion"]); 
+    //   setHasError(data["hasError"]);
+    //   setMessage(data["message"]);
+    //   setGiveUpButton(respData["giveUp"])
+
+    // })
+    // .catch((error) => {
+    //   console.log(error, "catch the hoop")
+    // });
+    //const data = response.json();
+    //console.log(response);
+    //const item = response.results;
+    //alert(item);
 
   };
 
-  const submitAsync = async() => {
+  const submitCorrectAnswerAsync = async() => {
     let args = {
       "questionNum":questionNum,
       "answer":answer,
@@ -201,11 +260,46 @@ export default function SignIn() {
       return resp.json()
     }) 
     .then((data) => {
-      let respData = data["data"];
-      setQuestionNum(respData["nextQuestion"]); 
-      setHasError(data["hasError"]);
-      setMessage(data["message"]);
-      setGiveUpButton(respData["giveUp"])
+      // let respData = data["data"];
+      // setQuestionNum(respData["nextQuestion"]); 
+      // setHasError(data["hasError"]);
+      // setMessage(data["message"]);
+      // setGiveUpButton(respData["giveUp"])
+      // setActualAnswer(respData["answer"]);
+
+    })
+    .catch((error) => {
+      console.log(error, "catch the hoop")
+    });
+  };
+
+  const submitWrongAnswerAsync = async() => {
+    let args = {
+      "questionNum":questionNum,
+      "answer":answer,
+      "gamename":gamename
+    };
+    let resp = {};
+    await fetch(BASE_URL + '/submitAnswer',{
+      method: "POST",
+      dataType: "JSON",
+      headers:{
+        "Content-Type": "application/json; charset=utf-8",
+        "Access-Control-Allow-Origin" : BASE_URL + "/*",
+        "Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization, Access-Control-Allow-Origin",
+        "Access-Control-Allow-Credentials": "true"
+      },
+      body: JSON.stringify(args)
+    }).then((resp) => {
+      return resp.json()
+    }) 
+    .then((data) => {
+      // let respData = data["data"];
+      // setQuestionNum(respData["nextQuestion"]); 
+      // setHasError(data["hasError"]);
+      // setMessage(data["message"]);
+      // setGiveUpButton(respData["giveUp"])
 
     })
     .catch((error) => {
@@ -223,13 +317,31 @@ export default function SignIn() {
     //   "gamename":gamename
     // };
     // let resp = {};
+    if(answer == ""){
+      setHasError("true");
+      setMessage("Answer cannot be blank.");
+      return;
+    }
     if(answer != actualAnswer){
       setMessage(INVALID_ANSWER);
-      
+      setGiveUpCount(giveUpCount + 1);
+      if(giveUpCount >= 5){
+        setGiveUpButton("true");
+      }
+      submitWrongAnswerAsync();
+      // submitWrongAnswerAsync();
     }else{
+      submitCorrectAnswerAsync();
       setMessage(CORRECT_ANSWER);
+      setGiveUpCount(0);
+      setGiveUpButton("false");
+      setCurrentQuestionNumber(currQuestionNumber + 1);
+      setQuestionNum(remainingQuestionSequence[currQuestionNumber + 1]); 
+      setActualAnswer(answers[remainingQuestionSequence[currQuestionNumber + 1]]);
+      setAnswer("");
     }
-    submitAsync();
+    setHasError("false");
+    
     //https://tools.learningcontainer.com/sample-json-file.json
     //http://127.0.0.1:5000/generateGameName
     //'https://cors-anywhere.herokuapp.com/'
@@ -274,9 +386,20 @@ export default function SignIn() {
     // }
 
     // Validate gamename and pin
+
+    if(fname == ""){
+      setIsFnameInvalid("true");
+      setFnameInvalidMessage("Name cannot be blank.");
+      return;
+    }
     if(gamename.length > 6){
       setIsGamenameInvalid("true");
-      setGamenameInvalidMsg("Game Id must be a 4 digit number");
+      setGamenameInvalidMsg("Employee Id must be a 6 digit number");
+      return;
+    }
+    if(gamename.length == 0){
+      setIsGamenameInvalid("true");
+      setGamenameInvalidMsg("Employee Id cannot be blank.");
       return;
     }
     if(pin.length != 4){
@@ -288,14 +411,14 @@ export default function SignIn() {
     for(i = 0 ; i < gamename.length ; i++){
       if(gamename.charCodeAt(i) < 48 || gamename.charCodeAt(i) > 57){
         setIsGamenameInvalid("true");
-        setGamenameInvalidMsg("Game Id must be a 5 digit number");
+        setGamenameInvalidMsg("Game Id must be a 6 digit number");
         return;
       }
     }
     for(i = 0 ; i < pin.length ; i++){
       if(pin.charCodeAt(i) < 48 || pin.charCodeAt(i) > 57){
         setIsPinInvalid("true");
-        setPinInvalidMsg("Pin must be a 5 digit number");
+        setPinInvalidMsg("Pin must be a 4 digit number");
         return;
       }
     }
@@ -332,12 +455,14 @@ export default function SignIn() {
     }) 
     .then((data) => {
       let respData = data["data"];
-      setQuestionNum(respData["nextQuestion"]); 
+      setRemainingQuestionSequence(respData["questionSequence"]);
+      setAnswers(respData["answers"]);
+      setQuestionNum(respData["questionSequence"][currQuestionNumber]); 
       setHasError(data["hasError"]);
       setMessage(data["message"]);
       setIsAdmin(respData["isAdmin"]);
-      setActualAnswer(respData["answer"]);
-
+      setActualAnswer(respData["answers"][respData["questionSequence"][currQuestionNumber]]);
+      
     })
     .catch((error) => {
       console.log(error, "catch the hoop")
@@ -445,6 +570,8 @@ export default function SignIn() {
             autoComplete="fname"
             onChange={handleFnameChange}
             autoFocus
+            error={isFnameInvalid == "true"}
+            helperText={isFnameInvalid == "true" ? fnameInvalidMessage : ''}
           />
           <TextField
             variant="outlined"
