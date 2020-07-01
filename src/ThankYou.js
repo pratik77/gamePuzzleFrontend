@@ -104,8 +104,14 @@ export default function Question1(props) {
             <ThumbUpIcon fontSize="large"/>
         </Avatar>
         <Divider variant="fullWidth" component="li" />
-          <Typography component="h1" variant="h5">
-          You have submitted all your answers. Now sit back and relax for the results.
+          <Typography component="h1" variant="h6" >
+          Great! Now relax and wait for the results. It will be nice of you if you fill up 
+          the feedback form. It will help us to improve further. 
+          </Typography>
+          <Typography>
+            <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=Z2om2-DLJk2uGtBYH-A1Nd8JZa3RWHVMomRyUz_ybmJUNzhZUjVGOEFTUFAxS0xBQVlEVFRCWU9BRi4u">
+              Feedback form
+            </a>
           </Typography>
         </div>
         </Grid>
