@@ -3,6 +3,10 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import Image from './img/lion2.jpeg';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Paper from '@material-ui/core/Paper';
+import Container from '@material-ui/core/Container';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -18,17 +22,17 @@ const useStyles = makeStyles((theme) => ({
       backgroundPosition: 'center',
     },
     paper: {
-      margin: theme.spacing(30, 4, 30, 4),
+      margin: theme.spacing(20, 4, 30, 4),
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'flex-start'
+      alignItems: 'center'
     },
     papercenter: {
       margin: theme.spacing(25, 4, 30, 4),
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'flex-start',
-      justifyContent: 'flex-start'
+      justifyContent: 'center'
     },
     paperleft: {
       margin: theme.spacing(10, 4, 30, 4),
@@ -67,20 +71,21 @@ export default function Question1(props) {
     const [secondary, setSecondary] = React.useState(false);
     
     return (
-      
-          <div className={classes.papercenter}>
-            
+      <Container component="main" maxWidth="xs">
+      <CssBaseline />
+          <div className={classes.paper}>
+              <img src={Image} height="150%" width="150%" alt="Logo" />
               <Button
                 fullWidth
                 variant="contained"
-                color="secondary"
+                color="primary"
                 className={classes.submit}
                 onClick={props.onGoToNextQuestion}
               >
-                GO TO NEXT QUESTION
+                AWESOME! MOVE TO NEXT QUESTION
               </Button>
           </div>
-          
+      </Container>
         
     );
   }

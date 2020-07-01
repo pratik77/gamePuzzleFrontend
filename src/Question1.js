@@ -119,7 +119,7 @@ export default function Question1(props) {
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
       {questionGrid}
-      {/* <Grid item xs={false} sm={4} md={7} className={classImage.image} /> */}
+      <Grid item xs={false} sm={4} md={7} className={classImage.image} />
       <Grid item xs={12} sm={4} md={5} component={Paper} elevation={6} square>
         <SubmissionSection giveUp={props.giveUp} onClick={props.onClick} hasError={props.hasError} message={props.message} onChange={props.onChange} onGiveUpClick={props.onGiveUpClick}/>
       </Grid>

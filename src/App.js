@@ -25,7 +25,7 @@ import Question9 from './Question9';
 import Question10 from './Question10';
 import ThankYou from './ThankYou';
 import AdminDashboard from './AdminDashboard';
-import { BASE_URL, INVALID_ANSWER, CORRECT_ANSWER } from './Constants';
+import { BASE_URL, INVALID_ANSWER, CORRECT_ANSWER, GIVE_UP, TOTAL_QUESTION, GIVE_UP_COUNT } from './Constants';
 import { UNSOLVED } from './Constants';
 import Image from './img/1.jpg';
 
@@ -189,7 +189,7 @@ export default function SignIn() {
     //alert(e.target["password"].value);
 
     giveUpQuestionAsync();
-    setMessage(CORRECT_ANSWER);
+    setMessage(GIVE_UP);
     setGiveUpCount(0);
     setGiveUpButton("false");
     setCurrentQuestionNumber(currQuestionNumber + 1);
@@ -325,7 +325,7 @@ export default function SignIn() {
     if(answer != actualAnswer){
       setMessage(INVALID_ANSWER);
       setGiveUpCount(giveUpCount + 1);
-      if(giveUpCount >= 5){
+      if(giveUpCount >= GIVE_UP_COUNT && questionNum < TOTAL_QUESTION){
         setGiveUpButton("true");
       }
       submitWrongAnswerAsync();

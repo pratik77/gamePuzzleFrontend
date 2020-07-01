@@ -8,10 +8,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import SubmissionSection from './SubmissionSection';
 import Image1 from './img/1.jpg';
 import Image2 from './img/2.jpg'; 
-import { CORRECT_ANSWER } from './Constants'
+import { CORRECT_ANSWER, GIVE_UP } from './Constants'
 import { INVALID_ANSWER } from './Constants'
 import WrongAnswerConfirmationPage from './WrongAnswerConfirmationPage'
 import CorrectAnswerConfirmationPage from './CorrectAnswerConfirmationPage'
+import GiveUpConfirmationPage from './GiveUpConfirmationPage'
 import Image3 from './img/3.jpg';
 import Image4 from './img/4.jpg';
 import Image5 from './img/51.jpeg';
@@ -257,12 +258,23 @@ export default function Question(props) {
   const classImage9 = useStylesImage9();
   const classImage10 = useStylesImage10();
 
+  let rightSidePanel;
+
   let questionGrid = "hello";
+
+  if(props.questionNum == 11)
+      return <ThankYou />;
   if(props.message == INVALID_ANSWER){
-    return <WrongAnswerConfirmationPage onGetBackToCurrentQuestion={props.onGetBackToCurrentQuestion}/>
+    rightSidePanel = <WrongAnswerConfirmationPage onGetBackToCurrentQuestion={props.onGetBackToCurrentQuestion}/>
   }
-  if(props.message == CORRECT_ANSWER){
-    return <CorrectAnswerConfirmationPage onGoToNextQuestion={props.onGoToNextQuestion}/>
+  else if(props.message == CORRECT_ANSWER){
+    return rightSidePanel =  <CorrectAnswerConfirmationPage onGoToNextQuestion={props.onGoToNextQuestion}/>
+  }
+  else if(props.message == GIVE_UP){
+    return rightSidePanel =  <GiveUpConfirmationPage onGoToNextQuestion={props.onGoToNextQuestion}/>
+  }
+  else{
+    rightSidePanel = <SubmissionSection giveUp={props.giveUp} onClick={props.onClick} hasError={props.hasError} message={props.message} onChange={props.onChange} onGiveUpClick={props.onGiveUpClick}/>
   }
 
   if(props.questionNum == 1)
@@ -285,8 +297,6 @@ export default function Question(props) {
     questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage9.image} />;
   else if(props.questionNum == 10)
     questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage10.image} />;
-  else if(props.questionNum == 11)
-      return <ThankYou />;
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -294,7 +304,7 @@ export default function Question(props) {
       {questionGrid}
       {/* <Grid item xs={false} sm={4} md={7} className={classImage.image} /> */}
       <Grid item xs={12} sm={4} md={5} component={Paper} elevation={6} square>
-        <SubmissionSection giveUp={props.giveUp} onClick={props.onClick} hasError={props.hasError} message={props.message} onChange={props.onChange} onGiveUpClick={props.onGiveUpClick}/>
+        {rightSidePanel}
       </Grid>
     </Grid>
   );
