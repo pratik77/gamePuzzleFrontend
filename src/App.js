@@ -542,7 +542,7 @@ export default function SignIn() {
   if(questionNum != 0){
       return <Question onClick={handleAnswerSubmit} hasError={hasError} message={message} onChange={handleAnswerChange}
       giveUp={giveUpButton} onGiveUpClick={handleGiveUpClick} onGetBackToCurrentQuestion={handleGetBackToCurrentQuestion}
-      onGoToNextQuestion={handleGoToNextQuestion} questionNum={questionNum}/>;
+      onGoToNextQuestion={handleGoToNextQuestion} questionNum={questionNum} name={fname + " " + lname}/>;
     
   }
 

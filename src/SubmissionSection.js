@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
     root: {
       height: '100vh',
+      
     },
     image: {
       backgroundImage: 'url(https://source.unsplash.com/random)',
@@ -28,7 +29,8 @@ const useStyles = makeStyles((theme) => ({
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'flex-start',
-      justifyContent: 'flex-start'
+      justifyContent: 'flex-start',
+      
     },
     paperleft: {
       margin: theme.spacing(10, 4, 30, 4),

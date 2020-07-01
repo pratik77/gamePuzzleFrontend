@@ -22,6 +22,10 @@ import Image8 from './img/81.jpeg';
 import Image9 from './img/91.jpeg';
 import Image10 from './img/10.jpg';
 import ThankYou from './ThankYou';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Box from '@material-ui/core/Box';
+import ImageBrainCrusher from './img/brainCrusher.jpeg'
 
 
 function Copyright() {
@@ -40,6 +44,8 @@ function Copyright() {
 const useStyles = makeStyles((theme, props) => ({
   root: {
     height: '100vh',
+    margin: theme.spacing(9, 0, 0, 0),
+
   },
   image: {
     backgroundImage: `url(${Image})`,
@@ -81,6 +87,16 @@ const useStyles = makeStyles((theme, props) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  toolbar: {
+    marginRight: theme.spacing(1), // keep right padding when drawer closed
+  },
+  rightSide:{
+    display: 'flex',
+    marginLeft: 'auto'
+  },
+  panelColor: {
+      backgroundColor : '#F5F5F5'
+  }
 }));
 
 const useStylesImage1 = makeStyles((theme, props) => ({
@@ -180,7 +196,7 @@ const useStylesImage2 = makeStyles((theme, props) => ({
       backgroundColor:
         theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
       backgroundSize: 'cover',
-      backgroundPosition: 'center',
+      backgroundPosition: 'fill',
       width: '58vw',
       height: '100vh'
       
@@ -299,13 +315,28 @@ export default function Question(props) {
     questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage10.image} />;
 
   return (
+    <div className={classes.root}>
+    <AppBar position="absolute" color="#FFFFFF">
+        <Toolbar className={classes.toolbar}>
+            <Box borderRadius="10px" padding="10px" fontFamily="Arial">
+                <img src={ImageBrainCrusher} height="20%" width="20%" alt="Logo" />
+            </Box>
+            <div className={classes.rightSide}>
+                <Box >
+                    <div color="#F5F5F5">Hello! {props.name}</div>
+                </Box>
+            </div>
+        </Toolbar>
+    </AppBar>
+    
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
       {questionGrid}
       {/* <Grid item xs={false} sm={4} md={7} className={classImage.image} /> */}
-      <Grid item xs={12} sm={4} md={5} component={Paper} elevation={6} square>
+      <Grid item xs={12} sm={4} md={5} component={Paper} elevation={6} square className={classes.panelColor}>
         {rightSidePanel}
       </Grid>
     </Grid>
+    </div>
   );
 }
