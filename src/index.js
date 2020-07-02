@@ -16,7 +16,7 @@ var element = React.createElement('h1', { className: 'greeting' }, 'Hello, world
 ReactDOM.render(
   <React.StrictMode>
     {/* <Question1/> */}
-    <App />
+    <App /> 
   </React.StrictMode>,
   document.getElementById('root')
 );
