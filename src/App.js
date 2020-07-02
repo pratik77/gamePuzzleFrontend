@@ -322,7 +322,7 @@ export default function SignIn() {
       setMessage("Answer cannot be blank.");
       return;
     }
-    if(answer != actualAnswer){
+    if(answer.toLowerCase() != actualAnswer.toLowerCase()){
       setMessage(INVALID_ANSWER);
       setGiveUpCount(giveUpCount + 1);
       if(giveUpCount >= GIVE_UP_COUNT && questionNum < TOTAL_QUESTION){
