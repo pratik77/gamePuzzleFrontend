@@ -14,8 +14,8 @@ import WrongAnswerConfirmationPage from './WrongAnswerConfirmationPage'
 import CorrectAnswerConfirmationPage from './CorrectAnswerConfirmationPage'
 import GiveUpConfirmationPage from './GiveUpConfirmationPage'
 import Image3 from './img/35.jpeg';
-import Image4 from './img/45.jpg';
-import Image5 from './img/72.jpeg';
+import Image4 from './img/45.jpeg';
+import Image5 from './img/76.jpeg';
 import Image6 from './img/51.jpeg';
 import Image7 from './img/3.jpg';
 import Image8 from './img/81.jpeg';
@@ -194,9 +194,7 @@ const useStylesImage2 = makeStyles((theme, props) => ({
       backgroundColor:
         theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
       backgroundSize: 'cover',
-      backgroundPosition: 'fill',
-      width: '58vw',
-      height: '100vh'
+      backgroundPosition: 'center'
       
     },
     

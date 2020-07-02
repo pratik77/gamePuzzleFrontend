@@ -24,7 +24,7 @@ import ArrowRightTwoToneIcon from '@material-ui/icons/ArrowRightTwoTone';
 import Filter1TwoToneIcon from '@material-ui/icons/Filter1TwoTone';
 import Divider from '@material-ui/core/Divider';
 import SubmissionSection from './SubmissionSection';
-import Image from './img/72.jpeg';
+import Image from './img/3.jpg';
 
 function Copyright() {
   return (
@@ -49,9 +49,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor:
       theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
     backgroundSize: 'cover',
-    backgroundPosition: 'fill',
-    width: '58vw',
-    height: '100vh'
+    backgroundPosition: 'center'
+    
   },
   paper: {
     margin: theme.spacing(30, 4, 30, 4),

@@ -24,7 +24,7 @@ import ArrowRightTwoToneIcon from '@material-ui/icons/ArrowRightTwoTone';
 import Filter1TwoToneIcon from '@material-ui/icons/Filter1TwoTone';
 import Divider from '@material-ui/core/Divider';
 import SubmissionSection from './SubmissionSection';
-import Image from './img/94.jpeg';
+import Image from './img/76.jpeg';
 
 function Copyright() {
   return (
