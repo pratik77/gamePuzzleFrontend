@@ -44,7 +44,7 @@ function Copyright() {
 const useStyles = makeStyles((theme, props) => ({
   root: {
     height: '100vh',
-    margin: theme.spacing(9, 0, 0, 0),
+    
 
   },
   image: {
@@ -87,9 +87,7 @@ const useStyles = makeStyles((theme, props) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-  toolbar: {
-    marginRight: theme.spacing(1), // keep right padding when drawer closed
-  },
+  toolbar: theme.mixins.toolbar,
   rightSide:{
     display: 'flex',
     marginLeft: 'auto'
@@ -316,7 +314,7 @@ export default function Question(props) {
 
   return (
     <div className={classes.root}>
-    <AppBar position="absolute" color="#FFFFFF">
+    <AppBar position="fixed" color="#FFFFFF">
         <Toolbar className={classes.toolbar}>
             <Box borderRadius="10px" padding="10px" fontFamily="Arial">
                 <img src={ImageBrainCrusher} height="20%" width="20%" alt="Logo" />
@@ -328,7 +326,7 @@ export default function Question(props) {
             </div>
         </Toolbar>
     </AppBar>
-    
+    <div className={classes.toolbar} />
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
       {questionGrid}

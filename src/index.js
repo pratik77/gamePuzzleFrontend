@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import AppLoadTest from './AppLoadTest';
 import SignIn from './SignIn.js';
 import Question from './Question';
 import Question7 from './Question7';
@@ -15,7 +16,8 @@ import GiveUpConfirmationPage from './GiveUpConfirmationPage';
 var element = React.createElement('h1', { className: 'greeting' }, 'Hello, world!');
 ReactDOM.render(
   <React.StrictMode>
-    {/* <Question1/> */}
+    {/* <Question/> */}
+    {/* <AppLoadTest />  */}
     <App /> 
   </React.StrictMode>,
   document.getElementById('root')

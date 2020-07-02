@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios'
-import { BASE_URL } from './Constants'
+import { BASE_URL1 } from './Constants'
 
 function Copyright() {
   return (
@@ -72,12 +72,12 @@ export default function SignIn() {
     //https://tools.learningcontainer.com/sample-json-file.json
     //http://127.0.0.1:5000/generateGameName
     //'https://cors-anywhere.herokuapp.com/'
-    fetch(BASE_URL + '/getUserGamePlayData',{
+    fetch(BASE_URL1 + '/getUserGamePlayData',{
       method: "POST",
       dataType: "JSON",
       headers:{
         "Content-Type": "application/json; charset=utf-8",
-        "Access-Control-Allow-Origin" : BASE_URL + "/*",
+        "Access-Control-Allow-Origin" : BASE_URL1 + "/*",
         "Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,PATCH,OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type, Authorization, Access-Control-Allow-Origin",
         "Access-Control-Allow-Credentials": "true"

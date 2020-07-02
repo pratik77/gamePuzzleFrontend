@@ -25,7 +25,7 @@ import Question9 from './Question9';
 import Question10 from './Question10';
 import ThankYou from './ThankYou';
 import AdminDashboard from './AdminDashboard';
-import { BASE_URL, INVALID_ANSWER, CORRECT_ANSWER, GIVE_UP, TOTAL_QUESTION, GIVE_UP_COUNT } from './Constants';
+import { BASE_URL1, INVALID_ANSWER, CORRECT_ANSWER, GIVE_UP, TOTAL_QUESTION, GIVE_UP_COUNT, BASE_URL0, BASE_URL2, SERVERS } from './Constants';
 import { UNSOLVED } from './Constants';
 import Image from './img/1.jpg';
 
@@ -113,6 +113,7 @@ export default function SignIn() {
     //https://tools.learningcontainer.com/sample-json-file.json
     //http://127.0.0.1:5000/generateGameName
     //'https://cors-anywhere.herokuapp.com/'
+    let BASE_URL = getBaseUrl();
     fetch(BASE_URL + '/getSubmissionDetailsAndLeaderboard',{
       method: "GET",
       dataType: "JSON",
@@ -143,15 +144,30 @@ export default function SignIn() {
 
   };
 
+  const getBaseUrl = () => {
+    let randNum = Math.floor(Math.random() * (999));
+    alert("rand Num Generated = " + randNum);
+    
+    if(randNum % SERVERS == 0){
+      alert("URL = " + BASE_URL0);
+      return BASE_URL0;
+      
+    }else if(randNum % SERVERS == 1){
+      alert("URL = " + BASE_URL1);
+      return BASE_URL1;
+    }
+    alert("URL = " + BASE_URL2);
+    return BASE_URL2;
+    
+  }
+
   const giveUpQuestionAsync = async() => {
     let args = {
       "questionNum":questionNum,
       "gamename":gamename
     };
     let resp = {};
-    //https://tools.learningcontainer.com/sample-json-file.json
-    //http://127.0.0.1:5000/generateGameName
-    //'https://cors-anywhere.herokuapp.com/'
+    let BASE_URL = getBaseUrl();
     fetch(BASE_URL + '/giveUpQuestion',{
       method: "POST",
       dataType: "JSON",
@@ -198,43 +214,7 @@ export default function SignIn() {
     setAnswer("");
     setHasError("false");
     
-    // let args = {
-    //   "questionNum":questionNum,
-    //   "gamename":gamename
-    // };
-    // let resp = {};
-    // //https://tools.learningcontainer.com/sample-json-file.json
-    // //http://127.0.0.1:5000/generateGameName
-    // //'https://cors-anywhere.herokuapp.com/'
-    // fetch(BASE_URL + '/giveUpQuestion',{
-    //   method: "POST",
-    //   dataType: "JSON",
-    //   headers:{
-    //     "Content-Type": "application/json; charset=utf-8",
-    //     "Access-Control-Allow-Origin" : BASE_URL + "/*",
-    //     "Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-    //     "Access-Control-Allow-Headers": "Content-Type, Authorization, Access-Control-Allow-Origin",
-    //     "Access-Control-Allow-Credentials": "true"
-    //   },
-    //   body: JSON.stringify(args)
-    // }).then((resp) => {
-    //   return resp.json()
-    // }) 
-    // .then((data) => {
-    //   let respData = data["data"];
-    //   setQuestionNum(respData["nextQuestion"]); 
-    //   setHasError(data["hasError"]);
-    //   setMessage(data["message"]);
-    //   setGiveUpButton(respData["giveUp"])
-
-    // })
-    // .catch((error) => {
-    //   console.log(error, "catch the hoop")
-    // });
-    //const data = response.json();
-    //console.log(response);
-    //const item = response.results;
-    //alert(item);
+    
 
   };
 
@@ -245,6 +225,7 @@ export default function SignIn() {
       "gamename":gamename
     };
     let resp = {};
+    let BASE_URL = getBaseUrl();
     await fetch(BASE_URL + '/submitAnswer',{
       method: "POST",
       dataType: "JSON",
@@ -280,6 +261,7 @@ export default function SignIn() {
       "gamename":gamename
     };
     let resp = {};
+    let BASE_URL = getBaseUrl();
     await fetch(BASE_URL + '/submitAnswer',{
       method: "POST",
       dataType: "JSON",
@@ -341,39 +323,6 @@ export default function SignIn() {
       setAnswer("");
     }
     setHasError("false");
-    
-    //https://tools.learningcontainer.com/sample-json-file.json
-    //http://127.0.0.1:5000/generateGameName
-    //'https://cors-anywhere.herokuapp.com/'
-    // fetch(BASE_URL + '/submitAnswer',{
-    //   method: "POST",
-    //   dataType: "JSON",
-    //   headers:{
-    //     "Content-Type": "application/json; charset=utf-8",
-    //     "Access-Control-Allow-Origin" : BASE_URL + "/*",
-    //     "Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-    //     "Access-Control-Allow-Headers": "Content-Type, Authorization, Access-Control-Allow-Origin",
-    //     "Access-Control-Allow-Credentials": "true"
-    //   },
-    //   body: JSON.stringify(args)
-    // }).then((resp) => {
-    //   return resp.json()
-    // }) 
-    // .then((data) => {
-    //   let respData = data["data"];
-    //   setQuestionNum(respData["nextQuestion"]); 
-    //   setHasError(data["hasError"]);
-    //   setMessage(data["message"]);
-    //   setGiveUpButton(respData["giveUp"])
-
-    // })
-    // .catch((error) => {
-    //   console.log(error, "catch the hoop")
-    // });
-    //const data = response.json();
-    //console.log(response);
-    //const item = response.results;
-    //alert(item);
 
   };
   
@@ -436,9 +385,7 @@ export default function SignIn() {
       "pin":pin
     };
     let resp = {};
-    //https://tools.learningcontainer.com/sample-json-file.json
-    //http://127.0.0.1:5000/generateGameName
-    //'https://cors-anywhere.herokuapp.com/'
+    let BASE_URL = getBaseUrl();
     fetch(BASE_URL + '/getUserGamePlayData',{
       method: "POST",
       dataType: "JSON",
@@ -496,42 +443,6 @@ export default function SignIn() {
     //alert(e.target.value);
     setAnswer(e.target.value);
   }
-
-  // useEffect(() =>{
-  //   (async() => {
-  //     let args = {
-  //       "questionNum":questionNum,
-  //       "answer":answer,
-  //       "gamename":gamename
-  //     };
-  //     let resp = {};
-  //     await fetch(BASE_URL + '/submitAnswer',{
-  //       method: "POST",
-  //       dataType: "JSON",
-  //       headers:{
-  //         "Content-Type": "application/json; charset=utf-8",
-  //         "Access-Control-Allow-Origin" : BASE_URL + "/*",
-  //         "Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-  //         "Access-Control-Allow-Headers": "Content-Type, Authorization, Access-Control-Allow-Origin",
-  //         "Access-Control-Allow-Credentials": "true"
-  //       },
-  //       body: JSON.stringify(args)
-  //     }).then((resp) => {
-  //       return resp.json()
-  //     }) 
-  //     .then((data) => {
-  //       let respData = data["data"];
-  //       setQuestionNum(respData["nextQuestion"]); 
-  //       setHasError(data["hasError"]);
-  //       setMessage(data["message"]);
-  //       setGiveUpButton(respData["giveUp"])
-  
-  //     })
-  //     .catch((error) => {
-  //       console.log(error, "catch the hoop")
-  //     });
-  //   })();
-  // }, []);
 
   if(isAdmin == "true"){
     return <AdminDashboard onRefresh={handleOnRefresh} leaderboard={leaderboard} leaderboard2={leaderboard2} submissionDetails={submissionDetails} />;
