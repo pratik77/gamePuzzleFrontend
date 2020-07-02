@@ -5,7 +5,7 @@ import App from './App';
 import AppLoadTest from './AppLoadTest';
 import SignIn from './SignIn.js';
 import Question from './Question';
-import Question7 from './Question7';
+import Question9 from './Question9';
 import SubmissionSection from './SubmissionSection';
 import AdminDashboard from './AdminDashboard';
 import * as serviceWorker from './serviceWorker';
@@ -16,9 +16,9 @@ import GiveUpConfirmationPage from './GiveUpConfirmationPage';
 var element = React.createElement('h1', { className: 'greeting' }, 'Hello, world!');
 ReactDOM.render(
   <React.StrictMode>
-    {/* <Question/> */}
-    {/* <AppLoadTest />  */}
+    {/* <Question9/> */}
     <App /> 
+    {/* <App />  */}
   </React.StrictMode>,
   document.getElementById('root')
 );
