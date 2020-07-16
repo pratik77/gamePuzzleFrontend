@@ -287,10 +287,10 @@ export default function SignIn() {
     }
     if(answer.toLowerCase() != actualAnswer.toLowerCase()){
       setMessage(INVALID_ANSWER);
-      setGiveUpCount(giveUpCount + 1);
-      if(giveUpCount >= GIVE_UP_COUNT && questionNum < TOTAL_QUESTION){
-        setGiveUpButton("true");
-      }
+      //setGiveUpCount(giveUpCount + 1);
+      // if(giveUpCount >= GIVE_UP_COUNT && questionNum < TOTAL_QUESTION){
+      //   setGiveUpButton("true");
+      // }
       submitWrongAnswerAsync();
       // submitWrongAnswerAsync();
     }else{
