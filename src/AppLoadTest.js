@@ -25,7 +25,7 @@ import Question9 from './Question9';
 import Question10 from './Question10';
 import ThankYou from './ThankYou';
 import AdminDashboard from './AdminDashboard';
-import { BASE_URL1, INVALID_ANSWER, CORRECT_ANSWER, GIVE_UP, TOTAL_QUESTION, GIVE_UP_COUNT, BASE_URL0, BASE_URL2 } from './Constants';
+import { BASE_URL1, INVALID_ANSWER, CORRECT_ANSWER, GIVE_UP, TOTAL_QUESTION, GIVE_UP_COUNT, BASE_URL0, BASE_URL2, SERVERS } from './Constants';
 import { UNSOLVED } from './Constants';
 import Image from './img/1.jpg';
 
@@ -103,11 +103,11 @@ export default function SignIn() {
   const submitHandlerAnswerSubmissionAsync = async(questionNum, answer, gamename) => {
     let gameIdInt = parseInt(gamename);
     let URL;
-    if(gameIdInt % 3 == 0){
+    if(gameIdInt % SERVERS == 0){
         URL = BASE_URL0;
-      }else if(gameIdInt % 3 == 1){
+      }else if(gameIdInt % SERVERS == 1){
         URL = BASE_URL1;
-      }else if(gameIdInt % 3 == 2){
+      }else if(gameIdInt % SERVERS == 2){
         URL = BASE_URL2;
       }
     let args = {
@@ -155,8 +155,8 @@ export default function SignIn() {
     
     alert("hi");
 
-    for(let i = 501 ; i < 561 ; i++){
-        submitHandlerAnswerSubmissionAsync("2", "-3", i.toString());
+    for(let i = 701 ; i < 861 ; i++){
+        submitHandlerAnswerSubmissionAsync("1", "stench", i.toString());
     }
     alert("all request sent");
     //const data = response.json();
@@ -177,11 +177,11 @@ export default function SignIn() {
 
       let gameIdInt = parseInt(gameId);
       let URL;
-      if(gameIdInt % 3 == 0){
+      if(gameIdInt % SERVERS == 0){
         URL = BASE_URL0;
-      }else if(gameIdInt % 3 == 1){
+      }else if(gameIdInt % SERVERS == 1){
         URL = BASE_URL1;
-      }else if(gameIdInt % 3 == 2){
+      }else if(gameIdInt % SERVERS == 2){
         URL = BASE_URL2;
       }
       //https://tools.learningcontainer.com/sample-json-file.json
@@ -220,7 +220,7 @@ export default function SignIn() {
 
     alert("hi");
 
-    for(let i = 501 ; i < 561 ; i++){
+    for(let i = 701 ; i < 861 ; i++){
         ayncsubmitHandlerGamePlay(i.toString());
     }
 
