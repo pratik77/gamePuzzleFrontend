@@ -5,7 +5,6 @@ import App from './App';
 import AppLoadTest from './AppLoadTest';
 import SignIn from './SignIn.js';
 import Question from './Question';
-import Question9 from './Question9';
 import SubmissionSection from './SubmissionSection';
 import AdminDashboard from './AdminDashboard';
 import * as serviceWorker from './serviceWorker';

@@ -6,21 +6,23 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import SubmissionSection from './SubmissionSection';
-import Image1 from './img/1.jpg';
-import Image2 from './img/2.jpg'; 
+import Image1 from './img/1.jpeg';
+import Image2 from './img/2.jpeg'; 
 import { CORRECT_ANSWER, GIVE_UP } from './Constants'
 import { INVALID_ANSWER } from './Constants'
 import WrongAnswerConfirmationPage from './WrongAnswerConfirmationPage'
 import CorrectAnswerConfirmationPage from './CorrectAnswerConfirmationPage'
 import GiveUpConfirmationPage from './GiveUpConfirmationPage'
-import Image3 from './img/35.jpeg';
-import Image4 from './img/45.jpeg';
-import Image5 from './img/76.jpeg';
-import Image6 from './img/51.jpeg';
-import Image7 from './img/3.jpg';
-import Image8 from './img/81.jpeg';
-import Image9 from './img/94.jpeg';
-import Image10 from './img/10.jpg';
+import Image3 from './img/3.jpeg';
+import Image4 from './img/4.jpeg';
+import Image5 from './img/5.jpeg';
+import Image6 from './img/6.jpeg';
+import Image7 from './img/7.jpeg';
+import Image8 from './img/8.jpeg';
+import Image9 from './img/9.jpeg';
+import Image10 from './img/10.jpeg';
+import Image11 from './img/11.jpeg';
+import Image12 from './img/12.jpeg';
 import ThankYou from './ThankYou';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -105,7 +107,7 @@ const useStylesImage1 = makeStyles((theme, props) => ({
       theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    width: '58vw',
+    width: '100vw',
     height: '100vh'
     
   },
@@ -120,7 +122,7 @@ const useStylesImage2 = makeStyles((theme, props) => ({
         theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
       backgroundSize: 'cover',
       backgroundPosition: 'center',
-      width: '58vw',
+      width: '100vw',
       height: '100vh'
       
     },
@@ -135,7 +137,7 @@ const useStylesImage2 = makeStyles((theme, props) => ({
         theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
       backgroundSize: 'cover',
       backgroundPosition: 'center',
-      width: '58vw',
+      width: '100vw',
       height: '100vh'
       
     },
@@ -150,7 +152,7 @@ const useStylesImage2 = makeStyles((theme, props) => ({
         theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
       backgroundSize: 'cover',
       backgroundPosition: 'center',
-      width: '58vw',
+      width: '100vw',
       height: '100vh'
       
     },
@@ -165,7 +167,7 @@ const useStylesImage2 = makeStyles((theme, props) => ({
         theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
       backgroundSize: 'cover',
       backgroundPosition: 'center',
-      width: '58vw',
+      width: '100vw',
       height: '100vh'
       
     },
@@ -180,7 +182,7 @@ const useStylesImage2 = makeStyles((theme, props) => ({
         theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
       backgroundSize: 'cover',
       backgroundPosition: 'center',
-      width: '58vw',
+      width: '100vw',
       height: '100vh'
       
     },
@@ -243,6 +245,36 @@ const useStylesImage2 = makeStyles((theme, props) => ({
     
   }));
 
+  const useStylesImage11 = makeStyles((theme, props) => ({
+    image: {
+      backgroundImage: `url(${Image11})`,
+      backgroundRepeat: 'no-repeat',
+      backgroundColor:
+        theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      width: '58vw',
+      height: '100vh'
+      
+    },
+    
+  }));
+
+  const useStylesImage12 = makeStyles((theme, props) => ({
+    image: {
+      backgroundImage: `url(${Image12})`,
+      backgroundRepeat: 'no-repeat',
+      backgroundColor:
+        theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      width: '58vw',
+      height: '100vh'
+      
+    },
+    
+  }));
+
 
 
 function generate(element) {
@@ -267,12 +299,14 @@ export default function Question(props) {
   const classImage8 = useStylesImage8();
   const classImage9 = useStylesImage9();
   const classImage10 = useStylesImage10();
+  const classImage11 = useStylesImage11();
+  const classImage12 = useStylesImage12();
 
   let rightSidePanel;
 
   let questionGrid = "hello";
 
-  if(props.questionNum == 11)
+  if(props.questionNum == 13)
       return <ThankYou />;
   if(props.message == INVALID_ANSWER){
     rightSidePanel = <WrongAnswerConfirmationPage onGetBackToCurrentQuestion={props.onGetBackToCurrentQuestion}/>
@@ -309,6 +343,10 @@ export default function Question(props) {
     questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage9.image} />;
   else if(props.questionNum == 10)
     questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage10.image} />;
+  else if(props.questionNum == 11)
+    questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage11.image} />;
+  else if(props.questionNum == 12)
+    questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage12.image} />;
 
   return (
     <div className={classes.root}>

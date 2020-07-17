@@ -13,21 +13,11 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Question from './Question';
-import Question1 from './Question1';
-import Question2 from './Question2';
-import Question3 from './Question3';
-import Question4 from './Question4';
-import Question5 from './Question5';
-import Question6 from './Question6';
-import Question7 from './Question7';
-import Question8 from './Question8';
-import Question9 from './Question9';
-import Question10 from './Question10';
 import ThankYou from './ThankYou';
 import AdminDashboard from './AdminDashboard';
 import { BASE_URL1, INVALID_ANSWER, CORRECT_ANSWER, GIVE_UP, TOTAL_QUESTION, GIVE_UP_COUNT, BASE_URL0, BASE_URL2, SERVERS } from './Constants';
 import { UNSOLVED } from './Constants';
-import Image from './img/1.jpg';
+import Image from './img/1.jpeg';
 
 function Copyright() {
   return (

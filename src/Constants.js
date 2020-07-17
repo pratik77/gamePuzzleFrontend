@@ -7,6 +7,6 @@ export const CORRECT_ANSWER = "Correct Answer."
 export const INVALID_ANSWER = "Incorrect Answer. Plz try again."
 export const UNSOLVED = "Unsolved";
 export const GIVE_UP = "Give up";
-export const TOTAL_QUESTION = 10;
+export const TOTAL_QUESTION = 12;
 export const GIVE_UP_COUNT = 2;
 export const SERVERS = 1

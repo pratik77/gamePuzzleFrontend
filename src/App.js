@@ -335,9 +335,7 @@ export default function SignIn() {
     // }
 
     // Validate gamename and pin
-    setDisableLoginBtn(true);
-    let progressBarVal = <div className={classes.linearProgress}><LinearProgress color="secondary" /></div>;
-    setprogressBarVal(progressBarVal);
+    
     if(fname == ""){
       setIsFnameInvalid("true");
       setFnameInvalidMessage("Name cannot be blank.");
@@ -373,7 +371,9 @@ export default function SignIn() {
         return;
       }
     }
-
+    setDisableLoginBtn(true);
+    let progressBarVal = <div className={classes.linearProgress}><LinearProgress color="secondary" /></div>;
+    setprogressBarVal(progressBarVal);
     //Reset invalid messages
     setIsGamenameInvalid("");
     setGamenameInvalidMsg("");
@@ -404,13 +404,26 @@ export default function SignIn() {
     }) 
     .then((data) => {
       let respData = data["data"];
-      setRemainingQuestionSequence(respData["questionSequence"]);
-      setAnswers(respData["answers"]);
-      setQuestionNum(respData["questionSequence"][currQuestionNumber]); 
-      setHasError(data["hasError"]);
-      setMessage(data["message"]);
-      setIsAdmin(respData["isAdmin"]);
-      setActualAnswer(respData["answers"][respData["questionSequence"][currQuestionNumber]]);
+      let hasError = data["hasError"];
+      if(hasError === "true"){
+        setRemainingQuestionSequence(respData["questionSequence"]);
+        setAnswers(respData["answers"]);
+        setQuestionNum(respData["questionSequence"][currQuestionNumber]); 
+        setHasError(data["hasError"]);
+        setMessage(data["message"]);
+        setIsAdmin(respData["isAdmin"]);
+        setActualAnswer(respData["answers"][respData["questionSequence"][currQuestionNumber]]);
+        setDisableLoginBtn(false);
+        setprogressBarVal("");
+      }else{
+        setRemainingQuestionSequence(respData["questionSequence"]);
+        setAnswers(respData["answers"]);
+        setQuestionNum(respData["questionSequence"][currQuestionNumber]); 
+        setHasError(data["hasError"]);
+        setMessage(data["message"]);
+        setIsAdmin(respData["isAdmin"]);
+        setActualAnswer(respData["answers"][respData["questionSequence"][currQuestionNumber]]);
+      }
       
     })
     .catch((error) => {
@@ -462,7 +475,7 @@ export default function SignIn() {
   }
 
   
-
+  
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
