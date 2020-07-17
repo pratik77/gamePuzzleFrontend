@@ -429,6 +429,8 @@ export default function SignIn() {
     .catch((error) => {
       console.log(error, "catch the hoop")
       alert("Some error occured while processing your request. Please try again later. Inconvenience caused is deeply regretted.");
+      setDisableLoginBtn(false);
+      setprogressBarVal("");
     });
     //const data = response.json();
     //console.log(response);
