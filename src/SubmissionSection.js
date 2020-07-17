@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -52,6 +53,12 @@ const useStyles = makeStyles((theme) => ({
     note:{
       margin: theme.spacing(14, 0, 0, 0),
       color: 'grey',
+    },
+    linearProgress: {
+      width: '100%',
+      '& > * + *': {
+        marginTop: theme.spacing(2),
+      },
     }
   }));
   
@@ -63,22 +70,39 @@ const useStyles = makeStyles((theme) => ({
     );
   }
 
+  function handleAnswerSubmit(props){
+
+  }
+
 export default function Question1(props) {
     const classes = useStyles();
     const [dense, setDense] = React.useState(false);
     const [secondary, setSecondary] = React.useState(false);
+    const [progressBarVal, setProgressBarVal] = React.useState("");
+    const [disableAnswerSubmitBtn, setDisableAnswerSubmitBtn] = React.useState(false);
     let giveUp;
-    if(props.giveUp === "true"){
-        giveUp = <Button
-        fullWidth
-        variant="contained"
-        color="secondary"
-        className={classes.submit}
-        onClick={props.onGiveUpClick}
-      >
-        Give Up
-      </Button>;
-    }
+    let progressBar;
+    // if(props.giveUp === "true"){
+    //     giveUp = <Button
+    //     fullWidth
+    //     variant="contained"
+    //     color="secondary"
+    //     className={classes.submit}
+    //     onClick={props.onGiveUpClick}
+    //   >
+    //     Give Up
+    //   </Button>;
+    // }
+
+    const handleAnswerSubmit = () => {
+      progressBar = <div className={classes.linearProgress}><LinearProgress color="secondary" /></div>;
+      setDisableAnswerSubmitBtn(true);
+      setProgressBarVal(progressBar);
+      
+      props.onClick();
+
+    };
+
     return (
       
           <div className={classes.papercenter}>
@@ -105,11 +129,13 @@ export default function Question1(props) {
                 variant="contained"
                 color="primary"
                 className={classes.submit}
-                onClick={props.onClick}
+                onClick={handleAnswerSubmit}
+                disabled={disableAnswerSubmitBtn}
               >
                 SUBMIT
               </Button>
-              {giveUp}
+              {/* {giveUp} */}
+              {progressBarVal}
           </div>
           
         

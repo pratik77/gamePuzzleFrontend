@@ -284,7 +284,9 @@ export default function Question(props) {
     return rightSidePanel =  <GiveUpConfirmationPage onGoToNextQuestion={props.onGoToNextQuestion}/>
   }
   else{
-    rightSidePanel = <SubmissionSection giveUp={props.giveUp} onClick={props.onClick} hasError={props.hasError} message={props.message} onChange={props.onChange} onGiveUpClick={props.onGiveUpClick}/>
+    rightSidePanel = <SubmissionSection giveUp={props.giveUp} onClick={props.onClick} hasError={props.hasError}
+     message={props.message} onChange={props.onChange} onGiveUpClick={props.onGiveUpClick}  disableAnswerSubmitBtn={props.disableAnswerSubmitBtn}
+     answerSubmitProgressBarVal={props.answerSubmitProgressBarVal}/>
   }
 
   if(props.questionNum == 1)

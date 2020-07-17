@@ -13,6 +13,7 @@ import Question from './Question';
 import AdminDashboard from './AdminDashboard';
 import { BASE_URL1, INVALID_ANSWER, CORRECT_ANSWER, GIVE_UP, TOTAL_QUESTION, GIVE_UP_COUNT, BASE_URL0, BASE_URL2, SERVERS } from './Constants';
 import { UNSOLVED } from './Constants';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 function Copyright() {
   return (
@@ -49,6 +50,12 @@ const useStyles = makeStyles((theme) => ({
   patternNumber:{
     pattern: "[0-9]{4}"
   },
+  linearProgress: {
+    width: '100%',
+    '& > * + *': {
+      marginTop: theme.spacing(2),
+    },
+  }
 }));
 
 
@@ -79,6 +86,10 @@ export default function SignIn() {
   const [answers, setAnswers] = useState({});
   const [isFnameInvalid, setIsFnameInvalid] = useState("false");
   const [fnameInvalidMessage, setFnameInvalidMessage] = useState("");
+  const [progressBarVal, setprogressBarVal] = useState("");
+  const [disableLoginBtn, setDisableLoginBtn] = useState(false);
+  const [disableAnswerSubmitBtn, setDisableAnswerSubmitBtn] = useState(false);
+  const [answerSubmitProgressBarVal, setAnswerSubmitProgressBarVal] = useState("");
 
   const handleGetBackToCurrentQuestion = () => {
     setMessage(UNSOLVED);
@@ -199,15 +210,16 @@ export default function SignIn() {
 
   };
 
-  const submitCorrectAnswerAsync = async() => {
+  const submitCorrectAnswerAsync = () => {
     let args = {
       "questionNum":questionNum,
       "answer":answer,
       "gamename":gamename
     };
     let resp = {};
+    
     let BASE_URL = getBaseUrl();
-    await fetch(BASE_URL + '/submitAnswer',{
+    fetch(BASE_URL + '/submitAnswer',{
       method: "POST",
       dataType: "JSON",
       headers:{
@@ -222,20 +234,30 @@ export default function SignIn() {
       return resp.json()
     }) 
     .then((data) => {
-      // let respData = data["data"];
-      // setQuestionNum(respData["nextQuestion"]); 
-      // setHasError(data["hasError"]);
-      // setMessage(data["message"]);
-      // setGiveUpButton(respData["giveUp"])
-      // setActualAnswer(respData["answer"]);
+      let respData = data["data"];
+      let message = data["message"];
+      if(message === CORRECT_ANSWER){
+        setQuestionNum(respData["nextQuestion"]); 
+        setMessage(CORRECT_ANSWER);
+        setGiveUpCount(0);
+        setGiveUpButton("false");
+        setCurrentQuestionNumber(currQuestionNumber + 1);
+        setQuestionNum(remainingQuestionSequence[currQuestionNumber + 1]); 
+        setActualAnswer(answers[remainingQuestionSequence[currQuestionNumber + 1]]);
+        setAnswer("");
+      }else{
+        alert("Error processing your submission, please try again or contact the system admin.");
+      }
+      
 
     })
     .catch((error) => {
+      alert("Internal server error, please try again or contact the system admin.");
       console.log(error, "catch the hoop")
     });
   };
 
-  const submitWrongAnswerAsync = async() => {
+  const submitWrongAnswerAsync = () => {
     let args = {
       "questionNum":questionNum,
       "answer":answer,
@@ -243,7 +265,7 @@ export default function SignIn() {
     };
     let resp = {};
     let BASE_URL = getBaseUrl();
-    await fetch(BASE_URL + '/submitAnswer',{
+    fetch(BASE_URL + '/submitAnswer',{
       method: "POST",
       dataType: "JSON",
       headers:{
@@ -263,6 +285,7 @@ export default function SignIn() {
       // setHasError(data["hasError"]);
       // setMessage(data["message"]);
       // setGiveUpButton(respData["giveUp"])
+      setMessage(INVALID_ANSWER);
 
     })
     .catch((error) => {
@@ -286,7 +309,7 @@ export default function SignIn() {
       return;
     }
     if(answer.toLowerCase() != actualAnswer.toLowerCase()){
-      setMessage(INVALID_ANSWER);
+      
       //setGiveUpCount(giveUpCount + 1);
       // if(giveUpCount >= GIVE_UP_COUNT && questionNum < TOTAL_QUESTION){
       //   setGiveUpButton("true");
@@ -294,15 +317,11 @@ export default function SignIn() {
       submitWrongAnswerAsync();
       // submitWrongAnswerAsync();
     }else{
+      let progressBarVal = <div className={classes.linearProgress}><LinearProgress color="secondary" /></div>;
       submitCorrectAnswerAsync();
-      setMessage(CORRECT_ANSWER);
-      setGiveUpCount(0);
-      setGiveUpButton("false");
-      setCurrentQuestionNumber(currQuestionNumber + 1);
-      setQuestionNum(remainingQuestionSequence[currQuestionNumber + 1]); 
-      setActualAnswer(answers[remainingQuestionSequence[currQuestionNumber + 1]]);
-      setAnswer("");
+      
     }
+    //setDisableAnswerSubmitBtn(false);
     setHasError("false");
 
   };
@@ -316,7 +335,9 @@ export default function SignIn() {
     // }
 
     // Validate gamename and pin
-
+    setDisableLoginBtn(true);
+    let progressBarVal = <div className={classes.linearProgress}><LinearProgress color="secondary" /></div>;
+    setprogressBarVal(progressBarVal);
     if(fname == ""){
       setIsFnameInvalid("true");
       setFnameInvalidMessage("Name cannot be blank.");
@@ -435,7 +456,8 @@ export default function SignIn() {
   if(questionNum != 0){
       return <Question onClick={handleAnswerSubmit} hasError={hasError} message={message} onChange={handleAnswerChange}
       giveUp={giveUpButton} onGiveUpClick={handleGiveUpClick} onGetBackToCurrentQuestion={handleGetBackToCurrentQuestion}
-      onGoToNextQuestion={handleGoToNextQuestion} questionNum={questionNum} name={fname + " " + lname}/>;
+      onGoToNextQuestion={handleGoToNextQuestion} questionNum={questionNum} name={fname + " " + lname} disableAnswerSubmitBtn={disableAnswerSubmitBtn} 
+      answerSubmitProgressBarVal={answerSubmitProgressBarVal}/>;
     
   }
 
@@ -513,10 +535,11 @@ export default function SignIn() {
             color="primary"
             className={classes.submit}
             onClick = {submitHandler}
+            disabled={disableLoginBtn}
           >
             Let's Play
           </Button>
-          
+          {progressBarVal}
       </div>
       <Box mt={8}>
         <Copyright />
