@@ -327,7 +327,7 @@ export default function Question(props) {
   if(props.questionNum == 1)
     questionGrid = <Container component="main" maxWidth="xs"><Grid item xs={false} sm={4} md={7} className={classImage1.image} /></Container>;
   else if(props.questionNum == 2)
-    questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage2.image} />;
+    questionGrid = <Container component="main" maxWidth="xs"><Grid item xs={false} sm={4} md={7} className={classImage2.image} /></Container>;
   else if(props.questionNum == 3)
     questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage3.image} />;
   else if(props.questionNum == 4)
