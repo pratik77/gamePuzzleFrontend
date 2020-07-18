@@ -28,6 +28,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Box from '@material-ui/core/Box';
 import ImageBrainCrusher from './img/brainCrusher.jpeg'
+import Container from '@material-ui/core/Container';
 
 
 function Copyright() {
@@ -324,7 +325,7 @@ export default function Question(props) {
   }
 
   if(props.questionNum == 1)
-    questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage1.image} />;
+    questionGrid = <Container component="main" maxWidth="xs"><Grid item xs={false} sm={4} md={7} className={classImage1.image} /></Container>;
   else if(props.questionNum == 2)
     questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage2.image} />;
   else if(props.questionNum == 3)
