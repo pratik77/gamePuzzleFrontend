@@ -100,7 +100,8 @@ export default function Question1(props) {
       setProgressBarVal(progressBar);
       
       props.onClick();
-
+      setDisableAnswerSubmitBtn(false);
+      setProgressBarVal("");
     };
 
     return (
