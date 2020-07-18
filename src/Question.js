@@ -108,8 +108,7 @@ const useStylesImage1 = makeStyles((theme, props) => ({
       theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    width: '100vw',
-    height: '100vh'
+    height: auto
     
   },
   
