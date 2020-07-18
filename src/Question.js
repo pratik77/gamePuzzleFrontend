@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import SubmissionSection from './SubmissionSection';
+import Image from './img/BrainCrusherBlur.jpeg';
 import Image1 from './img/1.jpeg';
 import Image2 from './img/2.jpeg'; 
 import { CORRECT_ANSWER, GIVE_UP } from './Constants'
@@ -52,14 +53,14 @@ const useStyles = makeStyles((theme, props) => ({
 
   },
   image: {
-    backgroundImage: `url(${Image})`,
+    backgroundImage: `url(${Image1})`,
     backgroundRepeat: 'no-repeat',
     backgroundColor:
       theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    width: '58vw',
-    height: '100vh'
+    width: '100%',
+    height: '100%'
     
   },
   paper: {
@@ -103,12 +104,12 @@ const useStyles = makeStyles((theme, props) => ({
 
 const useStylesImage1 = makeStyles((theme, sizing, props) => ({
   image: {
-    backgroundImage: `url(${Image1})`,
-    backgroundRepeat: 'no-repeat',
+    backgroundImage: `url(${Image1}), url(${Image})`,
+    backgroundRepeat: 'no-repeat, repeat',
     backgroundColor:
       theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
     backgroundSize: 'contain',
-    backgroundPosition: 'center',
+    backgroundPosition: 'center, center',
     width: '100%',
       height: '100%'
   },
@@ -117,14 +118,14 @@ const useStylesImage1 = makeStyles((theme, sizing, props) => ({
 
 const useStylesImage2 = makeStyles((theme, props) => ({
     image: {
-      backgroundImage: `url(${Image2})`,
-      backgroundRepeat: 'no-repeat',
+      backgroundImage: `url(${Image2}), url(${Image})`,
+      backgroundRepeat: 'no-repeat, repeat',
       backgroundColor:
         theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      width: '100vw',
-      height: '100vh'
+      backgroundSize: 'contain',
+      backgroundPosition: 'center, center',
+      width: '100%',
+      height: '100%'
       
     },
     
@@ -132,146 +133,140 @@ const useStylesImage2 = makeStyles((theme, props) => ({
 
   const useStylesImage3 = makeStyles((theme, props) => ({
     image: {
-      backgroundImage: `url(${Image3})`,
-      backgroundRepeat: 'no-repeat',
+      backgroundImage: `url(${Image3}), url(${Image})`,
+      backgroundRepeat: 'no-repeat, repeat',
       backgroundColor:
         theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      width: '100vw',
-      height: '100vh'
-      
+      backgroundSize: 'contain',
+      backgroundPosition: 'center, center',
+      width: '100%',
+        height: '100%',
     },
     
   }));
 
   const useStylesImage4 = makeStyles((theme, props) => ({
     image: {
-      backgroundImage: `url(${Image4})`,
-      backgroundRepeat: 'no-repeat',
+      backgroundImage: `url(${Image4}), url(${Image})`,
+      backgroundRepeat: 'no-repeat, repeat',
       backgroundColor:
         theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      width: '100vw',
-      height: '100vh'
-      
+      backgroundSize: 'contain',
+      backgroundPosition: 'center, center',
+      width: '100%',
+        height: '100%',
     },
     
   }));
 
   const useStylesImage5 = makeStyles((theme, props) => ({
     image: {
-      backgroundImage: `url(${Image5})`,
-      backgroundRepeat: 'no-repeat',
+      backgroundImage: `url(${Image5}), url(${Image})`,
+      backgroundRepeat: 'no-repeat, repeat',
       backgroundColor:
         theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      width: '100vw',
-      height: '100vh'
-      
+      backgroundSize: 'contain',
+      backgroundPosition: 'center, center',
+      width: '100%',
+        height: '100%',
     },
     
   }));
 
   const useStylesImage6 = makeStyles((theme, props) => ({
     image: {
-      backgroundImage: `url(${Image6})`,
-      backgroundRepeat: 'no-repeat',
+      backgroundImage: `url(${Image6}), url(${Image})`,
+      backgroundRepeat: 'no-repeat, repeat',
       backgroundColor:
         theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      width: '100vw',
-      height: '100vh'
-      
+      backgroundSize: 'contain',
+      backgroundPosition: 'center, center',
+      width: '100%',
+        height: '100%',
     },
     
   }));
 
   const useStylesImage7 = makeStyles((theme, props) => ({
     image: {
-      backgroundImage: `url(${Image7})`,
-      backgroundRepeat: 'no-repeat',
+      backgroundImage: `url(${Image7}), url(${Image})`,
+      backgroundRepeat: 'no-repeat, repeat',
       backgroundColor:
         theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-      backgroundSize: 'cover',
-      backgroundPosition: 'center'
-      
+      backgroundSize: 'contain',
+      backgroundPosition: 'center, center',
+      width: '100%',
+        height: '100%',
     },
     
   }));
 
   const useStylesImage8 = makeStyles((theme, props) => ({
     image: {
-      backgroundImage: `url(${Image8})`,
-      backgroundRepeat: 'no-repeat',
+      backgroundImage: `url(${Image8}), url(${Image})`,
+      backgroundRepeat: 'no-repeat, repeat',
       backgroundColor:
         theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      width: '100vw',
-      height: '100vh'
-      
+      backgroundSize: 'contain',
+      backgroundPosition: 'center, center',
+      width: '100%',
+        height: '100%',
     },
     
   }));
 
   const useStylesImage9 = makeStyles((theme, props) => ({
     image: {
-      backgroundImage: `url(${Image9})`,
-      backgroundRepeat: 'no-repeat',
+      backgroundImage: `url(${Image9}), url(${Image})`,
+      backgroundRepeat: 'no-repeat, repeat',
       backgroundColor:
         theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-      backgroundSize: 'cover',
-      backgroundPosition: 'center'
-      
+      backgroundSize: 'contain',
+      backgroundPosition: 'center, center',
+      width: '100%',
+        height: '100%',
     },
     
   }));
 
   const useStylesImage10 = makeStyles((theme, props) => ({
     image: {
-      backgroundImage: `url(${Image10})`,
-      backgroundRepeat: 'no-repeat',
+      backgroundImage: `url(${Image10}), url(${Image})`,
+      backgroundRepeat: 'no-repeat, repeat',
       backgroundColor:
         theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      width: '100vw',
-      height: '100vh'
-      
+      backgroundSize: 'contain',
+      backgroundPosition: 'center, center',
+      width: '100%',
+        height: '100%',
     },
     
   }));
 
   const useStylesImage11 = makeStyles((theme, props) => ({
     image: {
-      backgroundImage: `url(${Image11})`,
-      backgroundRepeat: 'no-repeat',
+      backgroundImage: `url(${Image11}), url(${Image})`,
+      backgroundRepeat: 'no-repeat, repeat',
       backgroundColor:
         theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      width: '100vw',
-      height: '100vh'
-      
+      backgroundSize: 'contain',
+      backgroundPosition: 'center, center',
+      width: '100%',
+        height: '100%',
     },
     
   }));
 
   const useStylesImage12 = makeStyles((theme, props) => ({
     image: {
-      backgroundImage: `url(${Image12})`,
-      backgroundRepeat: 'no-repeat',
+      backgroundImage: `url(${Image12}), url(${Image})`,
+      backgroundRepeat: 'no-repeat, repeat',
       backgroundColor:
         theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      width: '100vw',
-      height: '100vh'
-      
+      backgroundSize: 'contain',
+      backgroundPosition: 'center, center',
+      width: '100%',
+        height: '100%',
     },
     
   }));
@@ -325,9 +320,9 @@ export default function Question(props) {
   }
 
   if(props.questionNum == 1)
-    questionGrid = <Grid item xs={12} sm={12} md={7} lg={7} className={classImage1.image}/>;
+    questionGrid = <Grid item xs={12} sm={12} md={7} lg={7} className={classImage1.image} />;
   else if(props.questionNum == 2)
-    questionGrid = <Container component="main" maxWidth="md"><Grid item xs={false} sm={4} md={7} className={classImage2.image} /></Container>;
+    questionGrid = <Grid item xs={12} sm={12} md={7} lg={7} className={classImage2.image} /> ;
   else if(props.questionNum == 3)
     questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage3.image} />;
   else if(props.questionNum == 4)
@@ -364,11 +359,12 @@ export default function Question(props) {
         </Toolbar>
     </AppBar>
     <div className={classes.toolbar} />
-    <Grid container component="main" className={classes.root}>
+    <Grid container component="main" className={classes.image}>
       <CssBaseline />
       {questionGrid}
       {/* <Grid item xs={false} sm={4} md={7} className={classImage.image} /> */}
       <Grid item xs={12} sm={12} md={5} lg={5} component={Paper} elevation={6} square className={classes.panelColor}>
+      
         {rightSidePanel}
       </Grid>
     </Grid>
