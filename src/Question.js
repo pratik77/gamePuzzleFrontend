@@ -107,9 +107,7 @@ const useStylesImage1 = makeStyles((theme, props) => ({
     backgroundColor:
       theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
     backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    width: '100vw',
-    height: '100vh'
+    backgroundPosition: 'center'
     
   },
   
@@ -239,7 +237,7 @@ const useStylesImage2 = makeStyles((theme, props) => ({
         theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
       backgroundSize: 'cover',
       backgroundPosition: 'center',
-      width: '58vw',
+      width: '100vw',
       height: '100vh'
       
     },
@@ -254,7 +252,7 @@ const useStylesImage2 = makeStyles((theme, props) => ({
         theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
       backgroundSize: 'cover',
       backgroundPosition: 'center',
-      width: '58vw',
+      width: '100vw',
       height: '100vh'
       
     },
@@ -269,7 +267,7 @@ const useStylesImage2 = makeStyles((theme, props) => ({
         theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
       backgroundSize: 'cover',
       backgroundPosition: 'center',
-      width: '58vw',
+      width: '100vw',
       height: '100vh'
       
     },
