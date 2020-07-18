@@ -29,6 +29,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Box from '@material-ui/core/Box';
 import ImageBrainCrusher from './img/brainCrusher.jpeg'
 import Container from '@material-ui/core/Container';
+import { sizing } from '@material-ui/system';
 
 
 function Copyright() {
@@ -100,16 +101,16 @@ const useStyles = makeStyles((theme, props) => ({
   }
 }));
 
-const useStylesImage1 = makeStyles((theme, props) => ({
+const useStylesImage1 = makeStyles((theme, sizing, props) => ({
   image: {
     backgroundImage: `url(${Image1})`,
     backgroundRepeat: 'no-repeat',
     backgroundColor:
       theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-    backgroundSize: 'cover',
+    backgroundSize: 'contain',
     backgroundPosition: 'center',
-    height: auto
-    
+    width: '100%',
+      height: '100%'
   },
   
 }));
@@ -324,9 +325,9 @@ export default function Question(props) {
   }
 
   if(props.questionNum == 1)
-    questionGrid = <Container component="main" maxWidth="xs"><Grid item xs={false} sm={4} md={7} className={classImage1.image} /></Container>;
+    questionGrid = <Grid item xs={12} sm={12} md={7} lg={7} className={classImage1.image}/>;
   else if(props.questionNum == 2)
-    questionGrid = <Container component="main" maxWidth="xs"><Grid item xs={false} sm={4} md={7} className={classImage2.image} /></Container>;
+    questionGrid = <Container component="main" maxWidth="md"><Grid item xs={false} sm={4} md={7} className={classImage2.image} /></Container>;
   else if(props.questionNum == 3)
     questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage3.image} />;
   else if(props.questionNum == 4)
@@ -367,7 +368,7 @@ export default function Question(props) {
       <CssBaseline />
       {questionGrid}
       {/* <Grid item xs={false} sm={4} md={7} className={classImage.image} /> */}
-      <Grid item xs={12} sm={4} md={5} component={Paper} elevation={6} square className={classes.panelColor}>
+      <Grid item xs={12} sm={12} md={5} lg={5} component={Paper} elevation={6} square className={classes.panelColor}>
         {rightSidePanel}
       </Grid>
     </Grid>
