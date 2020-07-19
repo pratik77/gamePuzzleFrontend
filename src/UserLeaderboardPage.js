@@ -22,22 +22,22 @@ export default function UserLeaderboard(props){
 
     header = <div>
     <Grid container> 
-      <Grid item xs={12} sm={8} md={3}>
+      <Grid item xs={12} sm={3} md={3} lg={3}>
         <Typography component="h4" variant="h6">
           Rank
         </Typography>
       </Grid>
-      <Grid item xs={12} sm={8} md={3}>
+      <Grid item xs={12} sm={3} md={3} lg={3}>
         <Typography component="h4" variant="h6">
           Id
         </Typography>
       </Grid>
-      <Grid item xs={12} sm={8} md={3}>
+      <Grid item xs={12} sm={3} md={3} lg={3}>
         <Typography component="h4" variant="h6">
           Name
         </Typography>
       </Grid>
-      <Grid item xs={12} sm={8} md={3}>
+      <Grid item xs={12} sm={3} md={3} lg={3}>
         <Typography component="h4" variant="h6">
           Marks
         </Typography>
@@ -49,22 +49,22 @@ export default function UserLeaderboard(props){
     innerContent = props.leaderboard2.map((row) =>
         <div>
             <Grid container>
-            <Grid item xs={12} sm={8} md={3}>
+            <Grid item xs={12} sm={3} md={3} lg={3}>
                 <Typography component="h4" >
                 {row["rank"]}
                 </Typography>
             </Grid>
-            <Grid item xs={12} sm={8} md={3}>
+            <Grid item xs={12} sm={3} md={3} lg={3}>
                 <Typography component="h4" >
                 {row["gamename"]}
                 </Typography>
             </Grid>
-            <Grid item xs={12} sm={8} md={3}>
+            <Grid item xs={12} sm={3} md={3} lg={3}>
                 <Typography component="h1">
                 {row["fname"]}
                 </Typography>
             </Grid>
-            <Grid item xs={12} sm={8} md={3}>
+            <Grid item xs={12} sm={3} md={3} lg={3}>
                 <Typography component="h1">
                 {row["marks"]}
                 </Typography>
