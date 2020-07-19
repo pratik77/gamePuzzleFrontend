@@ -428,7 +428,7 @@ export default function SignIn() {
     })
     .catch((error) => {
       console.log(error, "catch the hoop")
-      alert("Some error occured while processing your request. Please try again later. Inconvenience caused is deeply regretted.");
+      alert("Some error occured while processing your request. Please try again later. Inconvenience caused is deeply regretted." + error);
       setDisableLoginBtn(false);
       setprogressBarVal("");
     });

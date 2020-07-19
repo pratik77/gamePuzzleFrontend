@@ -70,16 +70,15 @@ const useStyles = makeStyles((theme) => ({
     );
   }
 
-  function handleAnswerSubmit(props){
-
-  }
-
 export default function Question1(props) {
     const classes = useStyles();
     const [dense, setDense] = React.useState(false);
     const [secondary, setSecondary] = React.useState(false);
     const [progressBarVal, setProgressBarVal] = React.useState("");
     const [disableAnswerSubmitBtn, setDisableAnswerSubmitBtn] = React.useState(false);
+    const [answer, setAnswer] = React.useState("");
+    const [hasError, setHasError] = React.useState("false");
+    const [message, setMessage] = React.useState("");
     let giveUp;
     let progressBar;
     // if(props.giveUp === "true"){
@@ -94,7 +93,17 @@ export default function Question1(props) {
     //   </Button>;
     // }
 
+    const onAnswerChange = e => {
+      setAnswer(e.target.value);
+      props.onChange(e);
+    }
+
     const handleAnswerSubmit = () => {
+      if(answer == ""){
+        setHasError("true");
+        setMessage("Answer cannot be blank.");
+        return;
+      }
       progressBar = <div className={classes.linearProgress}><LinearProgress color="secondary" /></div>;
       setDisableAnswerSubmitBtn(true);
       setProgressBarVal(progressBar);
@@ -119,9 +128,9 @@ export default function Question1(props) {
                 name="answer"
                 autoComplete="answer"
                 autoFocus
-                error={props.hasError === "true"}
-                helperText={props.hasError === "true" ? props.message : ''}
-                onChange={props.onChange}
+                error={hasError === "true"}
+                helperText={hasError === "true" ? message : ''}
+                onChange={onAnswerChange}
               />
               <Button
                 fullWidth

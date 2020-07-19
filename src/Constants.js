@@ -1,6 +1,6 @@
 export const BASE_URL1 = "https://puzzlegameapi1.herokuapp.com"
 // export const BASE_URL0 = "https://puzzlegameapi0.herokuapp.com"
-export const BASE_URL0 = "https://69eb14834e9d.ngrok.io"
+export const BASE_URL0 = "https://b649b11a1e85.ngrok.io"
 export const BASE_URL2 = "https://puzzlegameapi2.herokuapp.com"
 // export const BASE_URL = "http://127.0.0.1:5000"
 export const CORRECT_ANSWER = "Correct Answer."
@@ -10,3 +10,5 @@ export const GIVE_UP = "Give up";
 export const TOTAL_QUESTION = 12;
 export const GIVE_UP_COUNT = 2;
 export const SERVERS = 1
+export const LEADERBOARD = "Leaderboard"; 
+export const HOME = "Home"; 

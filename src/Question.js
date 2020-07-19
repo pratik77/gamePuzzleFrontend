@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import SubmissionSection from './SubmissionSection';
-import Image from './img/BrainCrusherBlur.jpeg';
+import Image from './img/1.jpg';
 import Image1 from './img/1.jpeg';
 import Image2 from './img/2.jpeg'; 
 import { CORRECT_ANSWER, GIVE_UP } from './Constants'
@@ -31,7 +31,9 @@ import Box from '@material-ui/core/Box';
 import ImageBrainCrusher from './img/brainCrusher.jpeg'
 import Container from '@material-ui/core/Container';
 import { sizing } from '@material-ui/system';
-
+import { BASE_URL1, TOTAL_QUESTION, GIVE_UP_COUNT, BASE_URL0, BASE_URL2, SERVERS, LEADERBOARD, HOME } from './Constants';
+import UserAppBar from './UserAppBar';
+import UserLeaderboard from './UserLeaderboardPage';
 
 function Copyright() {
   return (
@@ -105,13 +107,14 @@ const useStyles = makeStyles((theme, props) => ({
 const useStylesImage1 = makeStyles((theme, sizing, props) => ({
   image: {
     backgroundImage: `url(${Image1}), url(${Image})`,
-    backgroundRepeat: 'no-repeat, repeat',
+    backgroundRepeat: 'no-repeat, no-repeat',
     backgroundColor:
       theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-    backgroundSize: 'contain',
+    backgroundSize: 'contain, cover',
     backgroundPosition: 'center, center',
     width: '100%',
-      height: '100%'
+      height: '100%',
+      backgroundBlendMode: 'auto, luminosity'
   },
   
 }));
@@ -283,8 +286,8 @@ function generate(element) {
 
 export default function Question(props) {
   const classes = useStyles();
-  const [dense, setDense] = React.useState(false);
-  const [secondary, setSecondary] = React.useState(false);
+  const [leaderboard2, setLeaderboard2] = React.useState([]);
+  const [pageNameBtn, setPageNameBtn] = React.useState(LEADERBOARD);
   const classImage1 = useStylesImage1();
   const classImage2 = useStylesImage2();
   const classImage3 = useStylesImage3();
@@ -298,14 +301,118 @@ export default function Question(props) {
   const classImage11 = useStylesImage11();
   const classImage12 = useStylesImage12();
 
+  const getBaseUrl = () => {
+    let randNum = Math.floor(Math.random() * (999));
+    
+    if(randNum % SERVERS == 0){
+      return BASE_URL0;
+      
+    }else if(randNum % SERVERS == 1){
+      return BASE_URL1;
+    }
+    return BASE_URL2;
+    
+  }
+
+  const getQuestionGrid = () => {
+    let questionGrid;
+    if(props.questionNum == 1)
+     questionGrid = <Grid item xs={12} sm={12} md={7} lg={7} className={classImage1.image} />;
+    else if(props.questionNum == 2)
+      questionGrid = <Grid item xs={12} sm={12} md={7} lg={7} className={classImage2.image} /> ;
+    else if(props.questionNum == 3)
+      questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage3.image} />;
+    else if(props.questionNum == 4)
+      questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage4.image} />;   
+    else if(props.questionNum == 5)
+      questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage5.image} />;
+    else if(props.questionNum == 6)
+      questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage6.image} />;
+    else if(props.questionNum == 7)
+      questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage7.image} />;
+    else if(props.questionNum == 8)
+      questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage8.image} />;
+    else if(props.questionNum == 9)
+      questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage9.image} />;
+    else if(props.questionNum == 10)
+      questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage10.image} />;
+    else if(props.questionNum == 11)
+      questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage11.image} />;
+    else if(props.questionNum == 12)
+      questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage12.image} />; 
+
+    return questionGrid;
+  }
+
+  const getLeaderboard = ()=> {
+    let resp = {};
+    //https://tools.learningcontainer.com/sample-json-file.json
+    //http://127.0.0.1:5000/generateGameName
+    //'https://cors-anywhere.herokuapp.com/'
+    let BASE_URL = getBaseUrl();
+    fetch(BASE_URL + '/getLeaderboard',{
+      method: "GET",
+      dataType: "JSON",
+      headers:{
+        "Content-Type": "application/json; charset=utf-8",
+        "Access-Control-Allow-Origin" : BASE_URL + "/*",
+        "Access-Control-Allow-Methods" : "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization, Access-Control-Allow-Origin",
+        "Access-Control-Allow-Credentials": "true"
+      },
+    }).then((resp) => {
+      return resp.json()
+    }) 
+    .then((data) => {
+      let respData = data["data"];
+      setLeaderboard2(respData["leaderboard2"]);
+      setPageNameBtn(HOME);
+    })
+    .catch((error) => {
+      alert("Error fetching leaderboard at thi moment, please try again later.");
+      console.log(error, "catch the hoop")
+    });
+  };
+
+  const handlePageNameBtnClick = (e) => {
+    //console.log(e.target["email"].value);
+    //alert(e.target["email"].value);
+    //alert(e.target["password"].value);
+    if(pageNameBtn !== LEADERBOARD){
+      setPageNameBtn(LEADERBOARD);
+    }else{
+      getLeaderboard();
+    }
+    
+    //const data = response.json();
+    //console.log(response);
+    //const item = response.results;
+    //alert(item);
+
+  };
+
+  //If not home page then show leaderboard
+  
+
   let rightSidePanel;
 
-  let questionGrid = "hello";
+  let questionGrid;
+  let lg, md, sm , xs;
+  let userAppBar;
+  
+  if(pageNameBtn !== LEADERBOARD){
+    xs = 12; sm = 12; md = 12; lg = 12;
 
-  if(props.questionNum == 13)
-      return <ThankYou />;
-  if(props.message == INVALID_ANSWER){
-    rightSidePanel = <WrongAnswerConfirmationPage onGetBackToCurrentQuestion={props.onGetBackToCurrentQuestion}/>
+    rightSidePanel = <UserLeaderboard name={props.name} leaderboard2={leaderboard2} handlePageNameBtnClick={handlePageNameBtnClick} pageNameBtn={pageNameBtn}/>;
+  }
+  else if(props.questionNum == TOTAL_QUESTION + 1){
+    xs = 12; sm = 12; md = 12; lg = 12;
+    rightSidePanel = <ThankYou />;
+  }
+  else if(props.message == INVALID_ANSWER){
+    xs = 12; sm = 12; md = 5; lg = 5;
+    rightSidePanel = <WrongAnswerConfirmationPage onGetBackToCurrentQuestion={props.onGetBackToCurrentQuestion}/>;
+    questionGrid = getQuestionGrid();
   }
   else if(props.message == CORRECT_ANSWER){
     return rightSidePanel =  <CorrectAnswerConfirmationPage onGoToNextQuestion={props.onGoToNextQuestion}/>
@@ -314,56 +421,40 @@ export default function Question(props) {
     return rightSidePanel =  <GiveUpConfirmationPage onGoToNextQuestion={props.onGoToNextQuestion}/>
   }
   else{
+    xs = 12; sm = 12; md = 5; lg = 5;
     rightSidePanel = <SubmissionSection giveUp={props.giveUp} onClick={props.onClick} hasError={props.hasError}
      message={props.message} onChange={props.onChange} onGiveUpClick={props.onGiveUpClick}  disableAnswerSubmitBtn={props.disableAnswerSubmitBtn}
      answerSubmitProgressBarVal={props.answerSubmitProgressBarVal}/>
-  }
 
-  if(props.questionNum == 1)
-    questionGrid = <Grid item xs={12} sm={12} md={7} lg={7} className={classImage1.image} />;
-  else if(props.questionNum == 2)
-    questionGrid = <Grid item xs={12} sm={12} md={7} lg={7} className={classImage2.image} /> ;
-  else if(props.questionNum == 3)
-    questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage3.image} />;
-  else if(props.questionNum == 4)
-    questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage4.image} />;   
-  else if(props.questionNum == 5)
-    questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage5.image} />;
-  else if(props.questionNum == 6)
-    questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage6.image} />;
-  else if(props.questionNum == 7)
-    questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage7.image} />;
-  else if(props.questionNum == 8)
-    questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage8.image} />;
-  else if(props.questionNum == 9)
-    questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage9.image} />;
-  else if(props.questionNum == 10)
-    questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage10.image} />;
-  else if(props.questionNum == 11)
-    questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage11.image} />;
-  else if(props.questionNum == 12)
-    questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage12.image} />;
+     questionGrid = getQuestionGrid();
+    
+  }
 
   return (
     <div className={classes.root}>
-    <AppBar position="fixed" color="#FFFFFF">
+    {/* <AppBar position="fixed" color="#FFFFFF">
         <Toolbar className={classes.toolbar}>
             <Box borderRadius="10px" padding="10px" fontFamily="Arial">
                 <img src={ImageBrainCrusher} height="20%" width="20%" alt="Logo" />
             </Box>
+
             <div className={classes.rightSide}>
+                <Box borderRadius="10px" padding="10px" fontFamily="Arial">
+                    <img src={ImageBrainCrusher} height="20%" width="20%" alt="Logo" />
+                </Box>
                 <Box >
                     <div color="#F5F5F5">Hello! {props.name}</div>
                 </Box>
             </div>
         </Toolbar>
-    </AppBar>
+    </AppBar> */}
+    <UserAppBar name={props.name} handlePageNameBtnClick={handlePageNameBtnClick} pageNameBtn={pageNameBtn}/>
     <div className={classes.toolbar} />
     <Grid container component="main" className={classes.image}>
       <CssBaseline />
       {questionGrid}
       {/* <Grid item xs={false} sm={4} md={7} className={classImage.image} /> */}
-      <Grid item xs={12} sm={12} md={5} lg={5} component={Paper} elevation={6} square className={classes.panelColor}>
+      <Grid item xs={xs} sm={sm} md={md} lg={lg} component={Paper} elevation={6} square className={classes.panelColor}>
       
         {rightSidePanel}
       </Grid>
