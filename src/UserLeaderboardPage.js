@@ -21,33 +21,33 @@ const useStyles = makeStyles((theme) => ({
     paper: {
         padding: theme.spacing(2),
         margin: theme.spacing(0.65, 0, 0.65, 0),
-        width: "36vw",
+        width: "79vw",
         backgroundColor: "#fcfcfc",
         
     },
     paperWinner: {
         padding: theme.spacing(2),
         margin: theme.spacing(0.65, 0, 0.65, 0),
-        width: "36vw",
+        width: "79vw",
         background: 'linear-gradient(90deg, #81de87, #49c962)',
         color: "white"
     },
     leaderboardPaper: {
         padding: theme.spacing(2),
         margin: theme.spacing(1, 0, 1, 0),
-        width: "40vw",
+        width: "83vw",
         
     },
     leaderboardParentPaper: {
         padding: theme.spacing(2),
         margin: theme.spacing(1, 0, 1, 0),
-        width: "47vw",
+        width: "90vw",
         backgroundColor: "#edf2ee"
     },
     paperHeader: {
         padding: theme.spacing(2),
         margin: theme.spacing(0.65, 0, 0.65, 0),
-        width: "40vw",
+        width: "83vw",
         background: 'linear-gradient(90deg, #81de87, #49c962)',
         color: "white"
     }
