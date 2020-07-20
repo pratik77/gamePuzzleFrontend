@@ -5,6 +5,7 @@ import Divider from '@material-ui/core/Divider';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
+import { Avatar } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,22 +23,17 @@ export default function UserLeaderboard(props){
 
     header = <div>
     <Grid container> 
-      <Grid item xs={12} sm={3} md={3} lg={3}>
+      <Grid item xs={12} sm={4} md={4} lg={4}>
         <Typography component="h4" variant="h6">
           Rank
         </Typography>
       </Grid>
-      <Grid item xs={12} sm={3} md={3} lg={3}>
-        <Typography component="h4" variant="h6">
-          Id
-        </Typography>
-      </Grid>
-      <Grid item xs={12} sm={3} md={3} lg={3}>
+      <Grid item xs={12} sm={4} md={4} lg={4}>
         <Typography component="h4" variant="h6">
           Name
         </Typography>
       </Grid>
-      <Grid item xs={12} sm={3} md={3} lg={3}>
+      <Grid item xs={12} sm={4} md={4} lg={4}>
         <Typography component="h4" variant="h6">
           Marks
         </Typography>
@@ -49,22 +45,18 @@ export default function UserLeaderboard(props){
     innerContent = props.leaderboard2.map((row) =>
         <div>
             <Grid container>
-            <Grid item xs={12} sm={3} md={3} lg={3}>
+            <Grid item xs={12} sm={4} md={4} lg={4}>
                 <Typography component="h4" >
                 {row["rank"]}
                 </Typography>
             </Grid>
-            <Grid item xs={12} sm={3} md={3} lg={3}>
-                <Typography component="h4" >
-                {row["gamename"]}
-                </Typography>
-            </Grid>
-            <Grid item xs={12} sm={3} md={3} lg={3}>
+            <Grid item xs={12} sm={4} md={4} lg={4}>
+                <Avatar alt={row["fname"]} src="/static/images/avatar/1.jpg" />
                 <Typography component="h1">
                 {row["fname"]}
                 </Typography>
             </Grid>
-            <Grid item xs={12} sm={3} md={3} lg={3}>
+            <Grid item xs={12} sm={4} md={4} lg={4}>
                 <Typography component="h1">
                 {row["marks"]}
                 </Typography>
