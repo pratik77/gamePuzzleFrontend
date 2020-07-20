@@ -14,6 +14,12 @@ import AdminDashboard from './AdminDashboard';
 import { BASE_URL1, INVALID_ANSWER, CORRECT_ANSWER, GIVE_UP, TOTAL_QUESTION, GIVE_UP_COUNT, BASE_URL0, BASE_URL2, SERVERS } from './Constants';
 import { UNSOLVED } from './Constants';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import { FormControl , FormHelperText } from '@material-ui/core';
+
+
 
 function Copyright() {
   return (
@@ -55,7 +61,18 @@ const useStyles = makeStyles((theme) => ({
     '& > * + *': {
       marginTop: theme.spacing(2),
     },
-  }
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: "100%",
+    width: "lg"
+  },
+  mediumAvatar: {
+    width: theme.spacing(10),
+    height: theme.spacing(10),
+    lineHeight: "20vh"
+  },
+
 }));
 
 
@@ -90,6 +107,8 @@ export default function SignIn() {
   const [disableLoginBtn, setDisableLoginBtn] = useState(false);
   const [disableAnswerSubmitBtn, setDisableAnswerSubmitBtn] = useState(false);
   const [answerSubmitProgressBarVal, setAnswerSubmitProgressBarVal] = useState("");
+  const [avatar, setAvatar] = useState("");
+  const [avatarNotSelectedMsg, setAvatarNotSelectedMsg] = useState("");
 
   const handleGetBackToCurrentQuestion = () => {
     setMessage(UNSOLVED);
@@ -356,6 +375,7 @@ export default function SignIn() {
       setPinInvalidMsg("Pin must be a 4 digit number");
       return;
     }
+    
     let i = 0;
     for(i = 0 ; i < gamename.length ; i++){
       if(gamename.charCodeAt(i) < 48 || gamename.charCodeAt(i) > 57){
@@ -371,6 +391,10 @@ export default function SignIn() {
         return;
       }
     }
+    if(avatar == ""){
+      setAvatarNotSelectedMsg("You must select an Avatar.");
+      return;
+    }
     setDisableLoginBtn(true);
     let progressBarVal = <div className={classes.linearProgress}><LinearProgress color="secondary" /></div>;
     setprogressBarVal(progressBarVal);
@@ -384,7 +408,8 @@ export default function SignIn() {
       "fname":fname,
       "lname":lname,
       "gamename":gamename,
-      "pin":pin
+      "pin":pin,
+      "avatar":avatar
     };
     let resp = {};
     let BASE_URL = getBaseUrl();
@@ -462,6 +487,12 @@ export default function SignIn() {
     setAnswer(e.target.value);
   }
 
+  const handleAvatarChange = e => {
+    //alert(e.target.value);
+    setAvatar(e.target.value);
+    setAvatarNotSelectedMsg("");
+  }
+
   if(isAdmin == "true"){
     return <AdminDashboard onRefresh={handleOnRefresh} leaderboard={leaderboard} leaderboard2={leaderboard2} submissionDetails={submissionDetails} />;
   }
@@ -472,7 +503,7 @@ export default function SignIn() {
       return <Question onClick={handleAnswerSubmit} hasError={hasError} message={message} onChange={handleAnswerChange}
       giveUp={giveUpButton} onGiveUpClick={handleGiveUpClick} onGetBackToCurrentQuestion={handleGetBackToCurrentQuestion}
       onGoToNextQuestion={handleGoToNextQuestion} questionNum={questionNum} name={fname + " " + lname} disableAnswerSubmitBtn={disableAnswerSubmitBtn} 
-      answerSubmitProgressBarVal={answerSubmitProgressBarVal}/>;
+      answerSubmitProgressBarVal={answerSubmitProgressBarVal} avatar={avatar}/>;
     
   }
 
@@ -490,7 +521,6 @@ export default function SignIn() {
         </Typography>
         
           <TextField
-            variant="outlined"
             margin="normal"
             required
             fullWidth
@@ -504,7 +534,6 @@ export default function SignIn() {
             helperText={isFnameInvalid == "true" ? fnameInvalidMessage : ''}
           />
           <TextField
-            variant="outlined"
             margin="normal"
             fullWidth
             name="lname"
@@ -516,7 +545,6 @@ export default function SignIn() {
           />
           <TextField
             className={classes.patternNumber}
-            variant="outlined"
             margin="normal"
             fullWidth
             name="gamename"
@@ -530,7 +558,7 @@ export default function SignIn() {
             helperText={hasError === "true" ? message : isGamenameInvalid == "true" ? gamenameInvalidMsg : ''}
           />
           <TextField
-            variant="outlined"
+            
             margin="normal"
             fullWidth
             name="pin"
@@ -544,6 +572,39 @@ export default function SignIn() {
             helperText={isPinInvalid == "true" ? pinInvalidMsg : ''}
             
           />
+          <FormControl className={classes.formControl} align="left">
+          <InputLabel htmlFor="avatarId">Avatar</InputLabel>
+          <Select
+          placeholder="Select..."
+          margin="normal"
+          fullWidth
+          labelId="avatar"
+          id="avatarId"
+          label="Avatar"
+          error={avatarNotSelectedMsg !== ""}
+          helperText={avatarNotSelectedMsg !== "" ? avatarNotSelectedMsg : ''}
+          onChange={handleAvatarChange}
+          required
+        >
+          <MenuItem value="/avatar/girl.png"><Avatar alt="Girl" src="/avatar/girl.png" className={classes.mediumAvatar}/> </MenuItem>
+          <MenuItem value="/avatar/cutegirl.png"><Avatar alt="Cute Girl" src="/avatar/cutegirl.png" className={classes.mediumAvatar}/> </MenuItem>
+          <MenuItem value="/avatar/ponygirl.png"><Avatar alt="Pony Girl" src="/avatar/ponygirl.png" className={classes.mediumAvatar}/> </MenuItem>
+          <MenuItem value="/avatar/shorthairgirl.png"><Avatar alt="Short Hair Girl" src="/avatar/shorthairgirl.png" className={classes.mediumAvatar}/> </MenuItem>
+          <MenuItem value="/avatar/releasedHairGirl.png"><Avatar alt="Long Hair Girl" src="/avatar/releasedHairGirl.png" className={classes.mediumAvatar}/> </MenuItem>
+          <MenuItem value="/avatar/boy.png"><Avatar alt="Boy" src="/avatar/boy.png" className={classes.mediumAvatar}/> </MenuItem>
+          <MenuItem value="/avatar/specboy.png" ><Avatar alt="Spec Boy" src="/avatar/specboy.png" className={classes.mediumAvatar}/> </MenuItem>
+          <MenuItem value="/avatar/beardboy.png"><Avatar alt="Beard Boy" src="/avatar/beardboy.png" className={classes.mediumAvatar}/> </MenuItem>
+          <MenuItem value="/avatar/shaikh.png"><Avatar alt="Shaikh" src="/avatar/shaikh.png" className={classes.mediumAvatar}/> </MenuItem>
+          <MenuItem value="/avatar/laughingvendetta.png"><Avatar alt="Laughing Vendetta" src="/avatar/laughingvendetta.png" className={classes.mediumAvatar}/> </MenuItem>
+          <MenuItem value="/avatar/maskedman.png"><Avatar alt="Masked Man" src="/avatar/maskedman.png" className={classes.mediumAvatar}/> </MenuItem>
+          <MenuItem value="/avatar/maskedemoji.png"><Avatar alt="Masked Emoji" src="/avatar/maskedemoji.png" className={classes.mediumAvatar}/> </MenuItem>
+          <MenuItem value="/avatar/wynkingemoji.png"><Avatar alt="Wynking Emoji" src="/avatar/wynkingemoji.png" className={classes.mediumAvatar}/> </MenuItem>
+          <MenuItem value="/avatar/mysticman.png"><Avatar alt="Mystic Man" src="/avatar/mysticman.png" className={classes.mediumAvatar}/> </MenuItem>
+          
+          
+        </Select>
+        <FormHelperText error={avatarNotSelectedMsg !== ""}>{avatarNotSelectedMsg !== "" ? avatarNotSelectedMsg : ''}</FormHelperText>
+        </FormControl>
           <Button
             fullWidth
             variant="contained"

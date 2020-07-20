@@ -28,10 +28,18 @@ const useStyles = makeStyles((theme) => ({
     paperWinner: {
         padding: theme.spacing(2),
         margin: theme.spacing(0.65, 0, 0.65, 0),
-        width: "79vw",
-        background: 'linear-gradient(90deg, #81de87, #49c962)',
+        width: "26vw",
+        height: "43vh",
+        background: 'linear-gradient(90deg, #804de8, #804de8)',
         color: "white"
     },
+    paperTop3:{
+        padding: theme.spacing(2),
+        margin: theme.spacing(0.65, 0, 0.65, 0),
+        width: "26vw",
+        height: "33vh",
+        backgroundColor: "#fcfcfc",
+    }, 
     leaderboardPaper: {
         padding: theme.spacing(2),
         margin: theme.spacing(1, 0, 1, 0),
@@ -48,8 +56,17 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2),
         margin: theme.spacing(0.65, 0, 0.65, 0),
         width: "83vw",
-        background: 'linear-gradient(90deg, #81de87, #49c962)',
+        background: 'linear-gradient(90deg, #804de8, #804de8)',
         color: "white"
+    },
+    large: {
+        width: theme.spacing(14),
+        height: theme.spacing(14),
+        lineHeight: "20vh"
+      },
+    avatarMedium:{
+        width: theme.spacing(9),
+        height: theme.spacing(9),
     }
 
   }));
@@ -66,30 +83,59 @@ const useStyles = makeStyles((theme) => ({
 export default function UserLeaderboard(props){
     const classes = useStyles();
     let header, innerContent;
-
-    header =
-    <Paper className={classes.paperHeader} variant= "outlined" square={true}>
-        <Grid container justify="center"> 
-            <Grid item xs={12} sm={12} md={11} lg={11}>
+    let top3 = props.leaderboard2.filter((row) => parseInt(row["rank"]) < 4);
+    // let temp = top3[0];
+    // top3[0] = top3[1];
+    // top3[1] = temp;
+    let rest = props.leaderboard2.filter((row) => parseInt(row["rank"]) >= 4);
+    let top3Content;
+    header = <Paper className={classes.paperHeader} variant= "outlined" square={true} align="center">
                 <Typography component="h4" variant="h6">
-                    Leaders
+                    Leaderboard
                 </Typography>
-            </Grid>
-            <Grid item xs={12} sm={12} md={1} lg={1}>
-                <Typography component="h4" variant="h6">
-                    Marks
-                </Typography>
-            </Grid>
-        </Grid> 
-    </Paper>
+            
+        
+            </Paper>
     ;
+    top3Content = top3.map((row) => 
+    <Grid item xs={12} sm={12} md={4} lg={4}>
+        <Paper className={row["rank"] == "1" ? classes.paperWinner : classes.paperTop3}
+        variant={row["rank"] == "1" ? "elevation" : "outlined"} square={true} elevation={row["rank"] == "1" ? 20 : 0}>
+            <Grid item xs={12} sm={12} md={12} lg={12} container direction="column" justify="space-evenly" alignItems="center" >
+                <Grid inputMode>
+                <Badge
+                    overlap="circle"
+                    anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                    }}
+                        badgeContent={<SmallAvatar alt={row["rank"]} src="/static/images/avatar/1.jpg" >{row["rank"]}</SmallAvatar>}
+                    >
+                    <Avatar className={classes.large} alt={row["fname"]} src={row["avatar"]} />
+                </Badge>
+                </Grid>
+                <Grid item >
+                    <Typography component="h1">
+                        {row["fname"]}
+                    </Typography>
+                </Grid>
+                <Grid item>
+                    <Typography component="h1">
+                        {row["marks"]}
+                    </Typography>
+                </Grid>
+            </Grid>   
+        </Paper>
+    </Grid>
+    );
 
-    innerContent = props.leaderboard2.map((row) =>
+    innerContent = rest.map((row) =>
+    
     
     <Grid item>
     <Paper className={row["rank"] == "1" ? classes.paperWinner : classes.paper} border="1px solid" variant= "outlined" square={true}>
         <Grid xs={12} sm={12} md={12} lg={12} container alignItems="center">
-                <Grid item xs={12} sm={12} md={11} lg={11}>
+                <Grid item={parseInt(row["rank"]) > 1} xs={12} sm={12} md={11} lg={11}>
                     <ListItem >
                         <ListItemAvatar>
                             <Badge
@@ -100,7 +146,7 @@ export default function UserLeaderboard(props){
                             }}
                                 badgeContent={<SmallAvatar alt={row["rank"]} src="/static/images/avatar/1.jpg" >{row["rank"]}</SmallAvatar>}
                             >
-                            <Avatar alt={row["fname"]} src="/static/images/avatar/2.jpg" />
+                            <Avatar alt={row["fname"]} src={row["avatar"]} className={classes.avatarMedium}/>
                             </Badge>
                         </ListItemAvatar>
                         <ListItemText primary={`${row["fname"]}`} ></ListItemText>
@@ -116,7 +162,6 @@ export default function UserLeaderboard(props){
         </Grid>
     </Paper>
     </Grid>   
-    
     );
 
     return(
@@ -132,13 +177,16 @@ export default function UserLeaderboard(props){
                             </Grid>
                             <Grid container justify="center">
                                 <Grid items>
-                            <Paper className={classes.leaderboardPaper} variant= "outlined" square={true}>
-                            
-                            <Grid container direction="column" xs={12} sm={12} md={12} lg={12} container alignItems="center">
-                                    {innerContent}
-                            </Grid>
-                            </Paper>
-                            </Grid>
+                                    <Paper className={classes.leaderboardPaper} variant= "outlined" square={true}>
+                                    
+                                        <Grid container direction="column" xs={12} sm={12} md={12} lg={12} container alignItems="center" >
+                                            <Grid item container direction="row" justify="space-between" alignItems="center" alignContent="center">
+                                                {top3Content}
+                                            </Grid>
+                                                {innerContent}
+                                        </Grid>
+                                    </Paper>
+                                </Grid>
                             </Grid>
                         </List>
                     </Paper>

@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { Avatar, ListItemAvatar, ListItemText , ListItem } from '@material-ui/core';
 
 const useStyles = makeStyles((theme, props) => ({
     root: {
@@ -41,7 +42,7 @@ const useStyles = makeStyles((theme, props) => ({
       marginTop: theme.spacing(1),
     },
     submit: {
-      margin: theme.spacing(2, 0, 2, 2),
+      margin: theme.spacing(2, 5, 2, 2),
     },
     toolbar: theme.mixins.toolbar,
     rightSide:{
@@ -59,7 +60,7 @@ const useStyles = makeStyles((theme, props) => ({
     circularProgressBar: {
         display: 'flex',
         '& > * + *': {
-          marginLeft: theme.spacing(2),
+          marginRight: theme.spacing(2, 3, 2, 2),
         },
       },
   }));
@@ -72,7 +73,7 @@ export default function UserAppBar(props) {
     
     let progressBarVal = "";
     const onPageNameClick = () => {
-        progressBarVal = <Box className={classes.name}><div className={classes.circularProgressBar}><CircularProgress size="1.5rem" color="primary" /></div></Box>;
+        progressBarVal = <div className={classes.circularProgressBar}><CircularProgress size="1.5rem" color="primary" /></div>;
         setCircularProgressBarVal(progressBarVal);
         setDisablePageNameBtn(true);
         //disablePageNameBtn = true;
@@ -87,7 +88,7 @@ export default function UserAppBar(props) {
         // setCircularProgressBarVal("");
         // setDisablePageNameBtn(false);
     };
-
+    //alert(props.avatar);
     return(
         <AppBar position="fixed" color="#FFFFFF">
             <Toolbar className={classes.toolbar}>
@@ -97,20 +98,25 @@ export default function UserAppBar(props) {
 
                 <div className={classes.rightSide}>
                 {circularProgressBarVal}
-                <Box className={classes.submit}>
-                    <Button variant="contained"
+
+                    <Button size="small" 
                         color="secondary"
                         onClick={onPageNameClick}
                         disabled={disablePageNameBtn}
+                        className={classes.submit}
                     >
                         {props.pageNameBtn}
                     </Button>
-                </Box>
-                <Box className={classes.name} lineHeight="center">
-                    <Box>
-                        Hello! {props.name}
-                    </Box>
-                </Box>
+                
+                    <ListItem >
+                        <ListItemAvatar>
+                            <Avatar alt={props.name} src={props.avatar} />
+                            
+                        </ListItemAvatar>
+                        <ListItemText primary={`${props.name}`} ></ListItemText>
+                        
+                    </ListItem>
+                
                     {/* <Box fullWidth className={classes.submit}>
                         <div color="#F5F5F5">Hello! {props.name}</div>
                     </Box> */}

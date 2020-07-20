@@ -448,7 +448,7 @@ export default function Question(props) {
             </div>
         </Toolbar>
     </AppBar> */}
-    <UserAppBar name={props.name} handlePageNameBtnClick={handlePageNameBtnClick} pageNameBtn={pageNameBtn}/>
+    <UserAppBar name={props.name} handlePageNameBtnClick={handlePageNameBtnClick} pageNameBtn={pageNameBtn} avatar={props.avatar}/>
     <div className={classes.toolbar} />
     <Grid container component="main" className={classes.image}>
       <CssBaseline />
