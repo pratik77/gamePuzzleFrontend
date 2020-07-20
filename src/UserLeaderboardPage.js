@@ -70,12 +70,12 @@ export default function UserLeaderboard(props){
     header =
     <Paper className={classes.paperHeader} variant= "outlined" square={true}>
         <Grid container justify="center"> 
-            <Grid item xs={11} sm={11} md={11} lg={11}>
+            <Grid item xs={12} sm={12} md={11} lg={11}>
                 <Typography component="h4" variant="h6">
                     Leaders
                 </Typography>
             </Grid>
-            <Grid item xs={1} sm={1} md={1} lg={1}>
+            <Grid item xs={12} sm={12} md={1} lg={1}>
                 <Typography component="h4" variant="h6">
                     Marks
                 </Typography>
@@ -89,7 +89,7 @@ export default function UserLeaderboard(props){
     <Grid item>
     <Paper className={row["rank"] == "1" ? classes.paperWinner : classes.paper} border="1px solid" variant= "outlined" square={true}>
         <Grid xs={12} sm={12} md={12} lg={12} container alignItems="center">
-                <Grid item xs={11} sm={11} md={11} lg={11}>
+                <Grid item xs={12} sm={12} md={11} lg={11}>
                     <ListItem >
                         <ListItemAvatar>
                             <Badge
@@ -107,7 +107,7 @@ export default function UserLeaderboard(props){
                         
                     </ListItem>
                 </Grid>
-                <Grid item xs={1} sm={1} md={1} lg={1}>
+                <Grid item xs={12} sm={12} md={1} lg={1}>
                     <Typography component="h1">
                     {row["marks"]}
                     </Typography>
