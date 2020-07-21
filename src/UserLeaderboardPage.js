@@ -67,6 +67,18 @@ const useStyles = makeStyles((theme) => ({
     avatarMedium:{
         width: theme.spacing(9),
         height: theme.spacing(9),
+    },
+    bronzeBackgroundAvatar:{
+        background: "#A97142",
+        color: "white"
+    },
+    silverBackgroundAvatar:{
+        background: "#d3d3d3",
+        color: "white"
+    },
+    goldBackgroundAvatar:{
+        background: "#d4af37",
+        color: "white"
     }
 
   }));
@@ -76,9 +88,107 @@ const useStyles = makeStyles((theme) => ({
       width: 25,
       height: 25,
       border: `2px solid ${theme.palette.background.paper}`,
-      fontSize: "1em"
+      fontSize: "1em",
+      background: 'linear-gradient(90deg, #81de87, #49c962)',
+      animation: '$ripple 3s infinite ease-in-out',
+    },
+    '@keyframes ripple': {
+        '0%': {
+          transform: 'scale(.8)',
+          opacity: 1,
+        },
+        '50%': {
+          transform: 'scale(1)',
+          opacity: 1,
+        },
+        '100%': {
+          transform: 'scale(0.8)',
+          opacity: 1,
+        },
+      },
+  }))(Avatar);
+
+  const Top3SmallAvatar = withStyles((theme) => ({
+    root: {
+      width: 40,
+      height: 40,
+      fontSize: "2em",
+    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+    animation: '$ripple 3s infinite ease-in-out',
+    },
+    '@keyframes ripple': {
+        '0%': {
+          transform: 'scale(.8)',
+          opacity: 1,
+        },
+        '50%': {
+          transform: 'scale(1)',
+          opacity: 1,
+        },
+        '100%': {
+          transform: 'scale(0.8)',
+          opacity: 1,
+        },
+      },
+  }))(Avatar);
+
+  const GoldSmallAvatar = withStyles((theme) => ({
+    root: {
+      width: 40,
+      height: 40,
+      border: `3px solid ${theme.palette.background.paper}`,
+      fontSize: "2em"
     },
   }))(Avatar);
+
+  const SilverSmallAvatar = withStyles((theme) => ({
+    root: {
+      width: 40,
+      height: 40,
+      border: `3px solid ${theme.palette.background.paper}`,
+      fontSize: "2em"
+    },
+  }))(Avatar);
+
+  const BronzeSmallAvatar = withStyles((theme) => ({
+    root: {
+      width: 40,
+      height: 40,
+      border: `3px solid ${theme.palette.background.paper}`,
+      fontSize: "2em",
+      background: "#A97142",
+      color: "white"
+    },
+  }))(Avatar);
+
+  const StyledBadge = withStyles((theme) => ({
+    badge: {
+        backgroundColor: 'linear-gradient(90deg, #81de87, #49c962)',
+        color: 'linear-gradient(90deg, #81de87, #49c962)',
+        boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+      '&::after': {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        borderRadius: '50%',
+        animation: '$ripple 1.2s infinite ease-in-out',
+        border: '1px solid currentColor',
+        content: '""',
+      },
+    },
+    '@keyframes ripple': {
+      '0%': {
+        transform: 'scale(.8)',
+        opacity: 1,
+      },
+      '100%': {
+        transform: 'scale(2.4)',
+        opacity: 0,
+      },
+    },
+  }))(Badge);
 
 export default function UserLeaderboard(props){
     const classes = useStyles();
@@ -109,10 +219,23 @@ export default function UserLeaderboard(props){
                     vertical: 'bottom',
                     horizontal: 'right',
                     }}
-                        badgeContent={<SmallAvatar alt={row["rank"]} src="/static/images/avatar/1.jpg" >{row["rank"]}</SmallAvatar>}
+                        badgeContent={<Top3SmallAvatar className={row["rank"] == 3 ? classes.bronzeBackgroundAvatar : 
+                        row["rank"] == 2 ? classes.silverBackgroundAvatar : classes.goldBackgroundAvatar} alt={row["rank"]} src="/static/images/avatar/1.jpg" >{row["rank"]}</Top3SmallAvatar>}
                     >
                     <Avatar className={classes.large} alt={row["fname"]} src={row["avatar"]} />
                 </Badge>
+                {/* <StyledBadge
+                    className={row["rank"] == 3 ? classes.bronzeBackgroundAvatar : 
+                    row["rank"] == 2 ? classes.silverBackgroundAvatar : classes.goldBackgroundAvatar}
+                    overlap="circle"
+                    anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                    }}
+                    variant="dot"
+                >
+                    <Avatar className={classes.large} alt={row["fname"]} src={row["avatar"]} />
+                </StyledBadge> */}
                 </Grid>
                 <Grid item >
                     <Typography component="h1">
@@ -148,6 +271,16 @@ export default function UserLeaderboard(props){
                             >
                             <Avatar alt={row["fname"]} src={row["avatar"]} className={classes.avatarMedium}/>
                             </Badge>
+                            {/* <StyledBadge
+                                overlap="circle"
+                                anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'right',
+                                }}
+                                variant="dot"
+                            >
+                                <Avatar alt={row["fname"]} src={row["avatar"]} className={classes.avatarMedium} />
+                            </StyledBadge> */}
                         </ListItemAvatar>
                         <ListItemText primary={`${row["fname"]}`} ></ListItemText>
                         
