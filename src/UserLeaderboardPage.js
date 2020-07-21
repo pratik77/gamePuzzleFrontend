@@ -8,6 +8,9 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { Avatar, ListItemAvatar, ListItemText , ListItem } from '@material-ui/core';
 import Badge from '@material-ui/core/Badge';
 import Paper from '@material-ui/core/Paper';
+import { Card , CardActionArea , CardActions , CardContent , CardMedia } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,19 +29,27 @@ const useStyles = makeStyles((theme) => ({
         
     },
     paperWinner: {
-        padding: theme.spacing(2),
+        paddingTop: "7vh" ,
         margin: theme.spacing(0.65, 0, 0.65, 0),
         width: "26vw",
         height: "43vh",
         background: 'linear-gradient(90deg, #804de8, #804de8)',
-        color: "white"
+        color: "white",
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justify: 'center'
     },
     paperTop3:{
-        padding: theme.spacing(2),
+        paddingTop: "4vh" ,
         margin: theme.spacing(0.65, 0, 0.65, 0),
         width: "26vw",
-        height: "33vh",
+        height: "36vh",
         backgroundColor: "#fcfcfc",
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justify: 'center'
     }, 
     leaderboardPaper: {
         padding: theme.spacing(2),
@@ -60,8 +71,13 @@ const useStyles = makeStyles((theme) => ({
         color: "white"
     },
     large: {
-        width: theme.spacing(14),
-        height: theme.spacing(14),
+        width: "14vh",
+        height: "14vh",
+        lineHeight: "20vh"
+      },
+      medium: {
+        width: "12vh",
+        height: "12vh",
         lineHeight: "20vh"
       },
     avatarMedium:{
@@ -79,6 +95,14 @@ const useStyles = makeStyles((theme) => ({
     goldBackgroundAvatar:{
         background: "#d4af37",
         color: "white"
+    },
+    cardContent:{
+        flex: '1 0 auto'
+        
+    },
+    cardRoot:{
+        display: 'flex',
+        direction: 'column'
     }
 
   }));
@@ -90,6 +114,7 @@ const useStyles = makeStyles((theme) => ({
       border: `2px solid ${theme.palette.background.paper}`,
       fontSize: "1em",
       background: 'linear-gradient(90deg, #81de87, #49c962)',
+      color: "#ffffff",
       animation: '$ripple 3s infinite ease-in-out',
     },
     '@keyframes ripple': {
@@ -118,15 +143,63 @@ const useStyles = makeStyles((theme) => ({
     },
     '@keyframes ripple': {
         '0%': {
-          transform: 'scale(.8)',
-          opacity: 1,
-        },
-        '50%': {
           transform: 'scale(1)',
           opacity: 1,
         },
+        '50%': {
+          transform: 'scale(1.2)',
+          opacity: 1,
+        },
         '100%': {
-          transform: 'scale(0.8)',
+          transform: 'scale(1)',
+          opacity: 1,
+        },
+      },
+  }))(Avatar);
+
+  const WinnerSmallAvatar = withStyles((theme) => ({
+    root: {
+      width: 40,
+      height: 40,
+      fontSize: "2em",
+    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+    animation: '$ripple 3s infinite ease-in-out',
+    },
+    '@keyframes ripple': {
+        '0%': {
+          transform: 'scale(1)',
+          opacity: 1,
+        },
+        '50%': {
+          transform: 'scale(1.2)',
+          opacity: 1,
+        },
+        '100%': {
+          transform: 'scale(1)',
+          opacity: 1,
+        },
+      },
+  }))(Avatar);
+
+  const RunnersSmallAvatar = withStyles((theme) => ({
+    root: {
+      width: 35,
+      height: 35,
+      fontSize: "2em",
+    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+    animation: '$ripple 3s infinite ease-in-out',
+    },
+    '@keyframes ripple': {
+        '0%': {
+          transform: 'scale(1)',
+          opacity: 1,
+        },
+        '50%': {
+          transform: 'scale(1.2)',
+          opacity: 1,
+        },
+        '100%': {
+          transform: 'scale(1)',
           opacity: 1,
         },
       },
@@ -190,67 +263,248 @@ const useStyles = makeStyles((theme) => ({
     },
   }))(Badge);
 
+  const GrayTextTypography = withStyles({
+    root: {
+      color: "#696969"
+    }
+  })(Typography);
+
+  const GrayListItemText = withStyles({
+    root: {
+      color: "#696969"
+    }
+  })(ListItemText);
+
 export default function UserLeaderboard(props){
     const classes = useStyles();
     let header, innerContent;
     let top3 = props.leaderboard2.filter((row) => parseInt(row["rank"]) < 4);
+    let winner = props.leaderboard2.filter((row) => parseInt(row["rank"]) == 1);
+    let runners = props.leaderboard2.filter((row) => parseInt(row["rank"]) > 1 && parseInt(row["rank"]) < 4);
     // let temp = top3[0];
     // top3[0] = top3[1];
     // top3[1] = temp;
     let rest = props.leaderboard2.filter((row) => parseInt(row["rank"]) >= 4);
     let top3Content;
+    let winnerContent;
+    let runnersContent;
     header = <Paper className={classes.paperHeader} variant= "outlined" square={true} align="center">
-                <Typography component="h4" variant="h6">
+                <Typography component="h4" variant="h5">
                     Leaderboard
                 </Typography>
             
         
             </Paper>
     ;
-    top3Content = top3.map((row) => 
+
+    winnerContent = winner.map((row) => 
     <Grid item xs={12} sm={12} md={4} lg={4}>
-        <Paper className={row["rank"] == "1" ? classes.paperWinner : classes.paperTop3}
-        variant={row["rank"] == "1" ? "elevation" : "outlined"} square={true} elevation={row["rank"] == "1" ? 20 : 0}>
-            <Grid item xs={12} sm={12} md={12} lg={12} container direction="column" justify="space-evenly" alignItems="center" >
-                <Grid inputMode>
+        <Card className={classes.paperWinner}
+        variant="elevation" square={true} elevation={20}>
+            <CardMedia>
                 <Badge
                     overlap="circle"
                     anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'right',
+                    vertical: 'top',
+                    horizontal: 'left',
                     }}
-                        badgeContent={<Top3SmallAvatar className={row["rank"] == 3 ? classes.bronzeBackgroundAvatar : 
-                        row["rank"] == 2 ? classes.silverBackgroundAvatar : classes.goldBackgroundAvatar} alt={row["rank"]} src="/static/images/avatar/1.jpg" >{row["rank"]}</Top3SmallAvatar>}
+                        badgeContent={<WinnerSmallAvatar src="/avatar/gold1.png" alt={row["rank"]}  >{row["rank"]}</WinnerSmallAvatar>}
                     >
                     <Avatar className={classes.large} alt={row["fname"]} src={row["avatar"]} />
                 </Badge>
-                {/* <StyledBadge
-                    className={row["rank"] == 3 ? classes.bronzeBackgroundAvatar : 
-                    row["rank"] == 2 ? classes.silverBackgroundAvatar : classes.goldBackgroundAvatar}
-                    overlap="circle"
-                    anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'right',
-                    }}
-                    variant="dot"
-                >
-                    <Avatar className={classes.large} alt={row["fname"]} src={row["avatar"]} />
-                </StyledBadge> */}
-                </Grid>
-                <Grid item >
-                    <Typography component="h1">
-                        {row["fname"]}
-                    </Typography>
-                </Grid>
-                <Grid item>
-                    <Typography component="h1">
-                        {row["marks"]}
-                    </Typography>
-                </Grid>
-            </Grid>   
-        </Paper>
+            </CardMedia>
+            <CardContent className={classes.cardContent}>
+                <Typography gutterBottom variant="h5" component="h2">
+                    {row["fname"]}
+                </Typography>
+                <Typography variant="h3">
+                    {row["marks"]}
+                </Typography>
+            </CardContent>
+                
+                    {/* <Badge
+                        overlap="circle"
+                        anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'left',
+                        }}
+                            badgeContent={<Top3SmallAvatar src="/avatar/gold1.png" alt={row["rank"]}  >{row["rank"]}</Top3SmallAvatar>}
+                        >
+                        <Avatar className={classes.large} alt={row["fname"]} src={row["avatar"]} />
+                    </Badge> */}
+                    
+        </Card>
     </Grid>
     );
+    runnersContent = runners.map((row) => 
+    <Grid item xs={12} sm={12} md={4} lg={4}>
+        <Card className={classes.paperTop3}
+        variant="outlined" square={true}>
+            <CardMedia>
+                <Badge
+                    overlap="circle"
+                    anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left',
+                    }}
+                        badgeContent={<RunnersSmallAvatar src={row["rank"] == 2 ? "/avatar/silver.png" : "/avatar/bronze.png"} alt={row["rank"]}  >{row["rank"]}</RunnersSmallAvatar>}
+                    >
+                    <Avatar className={classes.medium} alt={row["fname"]} src={row["avatar"]} />
+                </Badge>
+            </CardMedia>
+            <CardContent className={classes.cardContent}>
+                <GrayTextTypography gutterBottom variant="h6" component="h2">
+                    {row["fname"]}
+                </GrayTextTypography>
+                <GrayTextTypography variant="h4">
+                    {row["marks"]}
+                </GrayTextTypography>
+            </CardContent>
+                    
+        </Card>
+    </Grid>
+    );
+    // winnerContent = winner.map((row) => 
+    // <Grid item xs={12} sm={12} md={4} lg={4}>
+    //     <Paper className={classes.paperWinner}
+    //     variant="elevation" square={true} elevation={20}>
+    //         <Grid item xs={12} sm={12} md={12} lg={12} container direction="column" justify="space-evenly" alignItems="center" >
+    //             <Grid item>
+    //             <Badge
+    //                 overlap="circle"
+    //                 anchorOrigin={{
+    //                 vertical: 'top',
+    //                 horizontal: 'left',
+    //                 }}
+    //                     // badgeContent={<Top3SmallAvatar className={row["rank"] == 3 ? classes.bronzeBackgroundAvatar : 
+    //                     // row["rank"] == 2 ? classes.silverBackgroundAvatar : classes.goldBackgroundAvatar} alt={row["rank"]} src="/avatar/gold.jpeg" >{row["rank"]}</Top3SmallAvatar>}
+    //                     badgeContent={<Top3SmallAvatar src="/avatar/gold1.png" alt={row["rank"]}  >{row["rank"]}</Top3SmallAvatar>}
+    //                 >
+    //                 {/* <Avatar className={classes.large} alt={row["fname"]} src={row["avatar"]} /> */}
+    //                 <Avatar className={classes.large} alt={row["fname"]} src={row["avatar"]} />
+    //             </Badge>
+    //             {/* <StyledBadge
+    //                 className={row["rank"] == 3 ? classes.bronzeBackgroundAvatar : 
+    //                 row["rank"] == 2 ? classes.silverBackgroundAvatar : classes.goldBackgroundAvatar}
+    //                 overlap="circle"
+    //                 anchorOrigin={{
+    //                 vertical: 'bottom',
+    //                 horizontal: 'right',
+    //                 }}
+    //                 variant="dot"
+    //             >
+    //                 <Avatar className={classes.large} alt={row["fname"]} src={row["avatar"]} />
+    //             </StyledBadge> */}
+    //             </Grid>
+    //             <Grid item >
+    //                 <Typography variant="h5">
+    //                     {row["fname"]}
+    //                 </Typography>
+    //             </Grid>
+    //             <Grid item>
+    //                 <Typography variant="h4">
+    //                     {row["marks"]}
+    //                 </Typography>
+    //             </Grid>
+    //         </Grid>   
+    //     </Paper>
+    // </Grid>
+    // );
+
+    // runnersContent = runners.map((row) => 
+    // <Grid item xs={12} sm={12} md={4} lg={4}>
+    //     <Paper className={classes.paperTop3}
+    //     variant="outlined" square={true} >
+    //         <Grid item xs={12} sm={12} md={12} lg={12} container direction="column" justify="space-evenly" alignItems="center" >
+    //             <Grid item>
+    //             <Badge
+    //                 overlap="circle"
+    //                 anchorOrigin={{
+    //                 vertical: 'bottom',
+    //                 horizontal: 'right',
+    //                 }}
+    //                     // badgeContent={<Top3SmallAvatar className={row["rank"] == 3 ? classes.bronzeBackgroundAvatar : 
+    //                     // row["rank"] == 2 ? classes.silverBackgroundAvatar : classes.goldBackgroundAvatar} alt={row["rank"]} src="/avatar/gold.jpeg" >{row["rank"]}</Top3SmallAvatar>}
+    //                     badgeContent={<Top3SmallAvatar src={row["rank"] == 2 ? "/avatar/silver.png" : "/avatar/gold1.png"} alt={row["rank"]}  >{row["rank"]}</Top3SmallAvatar>}
+    //                 >
+    //                 {/* <Avatar className={classes.large} alt={row["fname"]} src={row["avatar"]} /> */}
+    //                 <Avatar className={classes.large} alt={row["fname"]} src={row["avatar"]} />
+    //             </Badge>
+    //             {/* <StyledBadge
+    //                 className={row["rank"] == 3 ? classes.bronzeBackgroundAvatar : 
+    //                 row["rank"] == 2 ? classes.silverBackgroundAvatar : classes.goldBackgroundAvatar}
+    //                 overlap="circle"
+    //                 anchorOrigin={{
+    //                 vertical: 'bottom',
+    //                 horizontal: 'right',
+    //                 }}
+    //                 variant="dot"
+    //             >
+    //                 <Avatar className={classes.large} alt={row["fname"]} src={row["avatar"]} />
+    //             </StyledBadge> */}
+    //             </Grid>
+    //             <Grid item >
+    //                 <GrayTextTypography variant="h5">
+    //                     {row["fname"]}
+    //                 </GrayTextTypography>
+    //             </Grid>
+    //             <Grid item>
+    //                 <GrayTextTypography variant="h4">
+    //                     {row["marks"]}
+    //                 </GrayTextTypography>
+    //             </Grid>
+    //         </Grid>   
+    //     </Paper>
+    // </Grid>
+    // );
+
+    // top3Content = top3.map((row) => 
+    // <Grid item xs={12} sm={12} md={4} lg={4}>
+    //     <Paper className={row["rank"] == "1" ? classes.paperWinner : classes.paperTop3}
+    //     variant={row["rank"] == "1" ? "elevation" : "outlined"} square={true} elevation={row["rank"] == "1" ? 20 : 0}>
+    //         <Grid item xs={12} sm={12} md={12} lg={12} container direction="column" justify="space-evenly" alignItems="center" >
+    //             <Grid inputMode>
+    //             <Badge
+    //                 overlap="circle"
+    //                 anchorOrigin={{
+    //                 vertical: 'bottom',
+    //                 horizontal: 'right',
+    //                 }}
+    //                     // badgeContent={<Top3SmallAvatar className={row["rank"] == 3 ? classes.bronzeBackgroundAvatar : 
+    //                     // row["rank"] == 2 ? classes.silverBackgroundAvatar : classes.goldBackgroundAvatar} alt={row["rank"]} src="/avatar/gold.jpeg" >{row["rank"]}</Top3SmallAvatar>}
+    //                     badgeContent={<Top3SmallAvatar src={row["rank"] == 3 ? "/avatar/bronze.png" : 
+    //                     row["rank"] == 2 ? "/avatar/silver.png" : "/avatar/gold1.png"} alt={row["rank"]}  >{row["rank"]}</Top3SmallAvatar>}
+    //                 >
+    //                 {/* <Avatar className={classes.large} alt={row["fname"]} src={row["avatar"]} /> */}
+    //                 <Avatar className={classes.large} alt={row["fname"]} src={row["avatar"]} />
+    //             </Badge>
+    //             {/* <StyledBadge
+    //                 className={row["rank"] == 3 ? classes.bronzeBackgroundAvatar : 
+    //                 row["rank"] == 2 ? classes.silverBackgroundAvatar : classes.goldBackgroundAvatar}
+    //                 overlap="circle"
+    //                 anchorOrigin={{
+    //                 vertical: 'bottom',
+    //                 horizontal: 'right',
+    //                 }}
+    //                 variant="dot"
+    //             >
+    //                 <Avatar className={classes.large} alt={row["fname"]} src={row["avatar"]} />
+    //             </StyledBadge> */}
+    //             </Grid>
+    //             <Grid item >
+    //                 <GrayTextTypography variant="h5">
+    //                     {row["fname"]}
+    //                 </GrayTextTypography>
+    //             </Grid>
+    //             <Grid item>
+    //                 <GrayTextTypography variant="h4">
+    //                     {row["marks"]}
+    //                 </GrayTextTypography>
+    //             </Grid>
+    //         </Grid>   
+    //     </Paper>
+    // </Grid>
+    // );
 
     innerContent = rest.map((row) =>
     
@@ -282,14 +536,14 @@ export default function UserLeaderboard(props){
                                 <Avatar alt={row["fname"]} src={row["avatar"]} className={classes.avatarMedium} />
                             </StyledBadge> */}
                         </ListItemAvatar>
-                        <ListItemText primary={`${row["fname"]}`} ></ListItemText>
+                        <GrayListItemText variant="h4" primary={`${row["fname"]}`} ></GrayListItemText>
                         
                     </ListItem>
                 </Grid>
                 <Grid item xs={12} sm={12} md={1} lg={1}>
-                    <Typography component="h1">
+                    <GrayTextTypography variant="h5">
                     {row["marks"]}
-                    </Typography>
+                    </GrayTextTypography>
                 </Grid>
             
         </Grid>
@@ -314,7 +568,8 @@ export default function UserLeaderboard(props){
                                     
                                         <Grid container direction="column" xs={12} sm={12} md={12} lg={12} container alignItems="center" >
                                             <Grid item container direction="row" justify="space-between" alignItems="center" alignContent="center">
-                                                {top3Content}
+                                                {winnerContent}
+                                                {runnersContent}
                                             </Grid>
                                                 {innerContent}
                                         </Grid>
