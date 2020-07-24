@@ -17,7 +17,6 @@ import ThankYou from './ThankYou';
 import AdminDashboard from './AdminDashboard';
 import { BASE_URL1, INVALID_ANSWER, CORRECT_ANSWER, GIVE_UP, TOTAL_QUESTION, GIVE_UP_COUNT, BASE_URL0, BASE_URL2, SERVERS } from './Constants';
 import { UNSOLVED } from './Constants';
-import Image from './img/1.jpeg';
 
 function Copyright() {
   return (

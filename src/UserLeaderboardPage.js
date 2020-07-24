@@ -71,18 +71,18 @@ const useStyles = makeStyles((theme) => ({
         color: "white"
     },
     large: {
-        width: "14vh",
-        height: "14vh",
+        width: "14vmin",
+        height: "14vmin",
         lineHeight: "20vh"
       },
       medium: {
-        width: "12vh",
-        height: "12vh",
+        width: "12vmin",
+        height: "12vmin",
         lineHeight: "20vh"
       },
     avatarMedium:{
-        width: theme.spacing(9),
-        height: theme.spacing(9),
+        width: "9vmin",
+        height: "9vmin",
     },
     bronzeBackgroundAvatar:{
         background: "#A97142",
@@ -109,8 +109,8 @@ const useStyles = makeStyles((theme) => ({
 
   const SmallAvatar = withStyles((theme) => ({
     root: {
-      width: 25,
-      height: 25,
+      width: "3.6vmin",
+      height: "3.6vmin",
       border: `2px solid ${theme.palette.background.paper}`,
       fontSize: "1em",
       background: 'linear-gradient(90deg, #81de87, #49c962)',
@@ -157,12 +157,24 @@ const useStyles = makeStyles((theme) => ({
       },
   }))(Avatar);
 
+  const RunnersScore = withStyles({
+    root: {
+      fontSize: "4.5vmin",
+      color: "#696969"
+    }
+  })(Typography);
+
+  const WinnerScore = withStyles({
+    root: {
+      fontSize: "9vmin"
+    }
+  })(Typography);
+
   const WinnerSmallAvatar = withStyles((theme) => ({
     root: {
-      width: 40,
-      height: 40,
+      width: "5.8vmin",
+      height: "5.8vmin",
       fontSize: "2em",
-    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
     animation: '$ripple 3s infinite ease-in-out',
     },
     '@keyframes ripple': {
@@ -183,10 +195,9 @@ const useStyles = makeStyles((theme) => ({
 
   const RunnersSmallAvatar = withStyles((theme) => ({
     root: {
-      width: 35,
-      height: 35,
+      width: "5vmin",
+      height: "5vmin",
       fontSize: "2em",
-    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
     animation: '$ripple 3s infinite ease-in-out',
     },
     '@keyframes ripple': {
@@ -317,9 +328,9 @@ export default function UserLeaderboard(props){
                 <Typography gutterBottom variant="h5" component="h2">
                     {row["fname"]}
                 </Typography>
-                <Typography variant="h3">
+                <WinnerScore>
                     {row["marks"]}
-                </Typography>
+                </WinnerScore>
             </CardContent>
                 
                     {/* <Badge
@@ -356,9 +367,9 @@ export default function UserLeaderboard(props){
                 <GrayTextTypography gutterBottom variant="h6" component="h2">
                     {row["fname"]}
                 </GrayTextTypography>
-                <GrayTextTypography variant="h4">
+                <RunnersScore variant="h4">
                     {row["marks"]}
-                </GrayTextTypography>
+                </RunnersScore>
             </CardContent>
                     
         </Card>

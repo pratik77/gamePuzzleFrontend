@@ -6,24 +6,24 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import SubmissionSection from './SubmissionSection';
-import Image from './img/1.jpg';
-import Image1 from './img/1.jpeg';
-import Image2 from './img/2.jpeg'; 
+import Image from './img/blur.jpg';
+import Image1 from './img/1.JPG';
+import Image2 from './img/2.JPG'; 
 import { CORRECT_ANSWER, GIVE_UP } from './Constants'
 import { INVALID_ANSWER } from './Constants'
 import WrongAnswerConfirmationPage from './WrongAnswerConfirmationPage'
 import CorrectAnswerConfirmationPage from './CorrectAnswerConfirmationPage'
 import GiveUpConfirmationPage from './GiveUpConfirmationPage'
-import Image3 from './img/3.jpeg';
-import Image4 from './img/4.jpeg';
-import Image5 from './img/5.jpeg';
-import Image6 from './img/6.jpeg';
-import Image7 from './img/7.jpeg';
-import Image8 from './img/8.jpeg';
-import Image9 from './img/9.jpeg';
-import Image10 from './img/10.jpeg';
-import Image11 from './img/11.jpeg';
-import Image12 from './img/12.jpeg';
+import Image3 from './img/3.JPG';
+import Image4 from './img/4.JPG';
+import Image5 from './img/5.JPG';
+import Image6 from './img/6.JPG';
+import Image7 from './img/7.JPG';
+import Image8 from './img/8.JPG';
+import Image9 from './img/9.JPG';
+import Image10 from './img/10.JPG';
+// import Image11 from './img/11.jpeg';
+// import Image12 from './img/12.jpeg';
 import ThankYou from './ThankYou';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -246,33 +246,33 @@ const useStylesImage2 = makeStyles((theme, props) => ({
     
   }));
 
-  const useStylesImage11 = makeStyles((theme, props) => ({
-    image: {
-      backgroundImage: `url(${Image11}), url(${Image})`,
-      backgroundRepeat: 'no-repeat, repeat',
-      backgroundColor:
-        theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-      backgroundSize: 'contain',
-      backgroundPosition: 'center, center',
-      width: '100%',
-        height: '100%',
-    },
+  // const useStylesImage11 = makeStyles((theme, props) => ({
+  //   image: {
+  //     backgroundImage: `url(${Image11}), url(${Image})`,
+  //     backgroundRepeat: 'no-repeat, repeat',
+  //     backgroundColor:
+  //       theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+  //     backgroundSize: 'contain',
+  //     backgroundPosition: 'center, center',
+  //     width: '100%',
+  //       height: '100%',
+  //   },
     
-  }));
+  // }));
 
-  const useStylesImage12 = makeStyles((theme, props) => ({
-    image: {
-      backgroundImage: `url(${Image12}), url(${Image})`,
-      backgroundRepeat: 'no-repeat, repeat',
-      backgroundColor:
-        theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-      backgroundSize: 'contain',
-      backgroundPosition: 'center, center',
-      width: '100%',
-        height: '100%',
-    },
+  // const useStylesImage12 = makeStyles((theme, props) => ({
+  //   image: {
+  //     backgroundImage: `url(${Image12}), url(${Image})`,
+  //     backgroundRepeat: 'no-repeat, repeat',
+  //     backgroundColor:
+  //       theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+  //     backgroundSize: 'contain',
+  //     backgroundPosition: 'center, center',
+  //     width: '100%',
+  //       height: '100%',
+  //   },
     
-  }));
+  // }));
 
 
 
@@ -298,8 +298,8 @@ export default function Question(props) {
   const classImage8 = useStylesImage8();
   const classImage9 = useStylesImage9();
   const classImage10 = useStylesImage10();
-  const classImage11 = useStylesImage11();
-  const classImage12 = useStylesImage12();
+  // const classImage11 = useStylesImage11();
+  // const classImage12 = useStylesImage12();
 
   const getBaseUrl = () => {
     let randNum = Math.floor(Math.random() * (999));
@@ -336,10 +336,10 @@ export default function Question(props) {
       questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage9.image} />;
     else if(props.questionNum == 10)
       questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage10.image} />;
-    else if(props.questionNum == 11)
-      questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage11.image} />;
-    else if(props.questionNum == 12)
-      questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage12.image} />; 
+    // else if(props.questionNum == 11)
+    //   questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage11.image} />;
+    // else if(props.questionNum == 12)
+    //   questionGrid = <Grid item xs={false} sm={4} md={7} className={classImage12.image} />; 
 
     return questionGrid;
   }
