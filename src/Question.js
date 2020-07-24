@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import SubmissionSection from './SubmissionSection';
 import Image from './img/blur.jpg';
-import Image1 from './img/1.JPG';
+import Image1 from './img/11.JPG';
 import Image2 from './img/2.JPG'; 
 import { CORRECT_ANSWER, GIVE_UP } from './Constants'
 import { INVALID_ANSWER } from './Constants'
