@@ -17,7 +17,7 @@ ReactDOM.render(
   <React.StrictMode>
     {/* <Question9/> */}
     <App /> 
-    {/* <App />  */}
+    {/* <AppLoadTest />  */}
   </React.StrictMode>,
   document.getElementById('root')
 );

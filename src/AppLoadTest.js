@@ -144,7 +144,7 @@ export default function SignIn() {
     
     alert("hi");
 
-    for(let i = 701 ; i < 861 ; i++){
+    for(let i = 1 ; i < 200 ; i++){
         submitHandlerAnswerSubmissionAsync("1", "stench", i.toString());
     }
     alert("all request sent");
@@ -160,7 +160,8 @@ export default function SignIn() {
         "fname":"Pratik" + gameId,
         "lname":"",
         "gamename":gameId,
-        "pin":"1234"
+        "pin":"1234",
+        "avatar":"src/sample"
       };
       let resp = {};
 
@@ -209,7 +210,7 @@ export default function SignIn() {
 
     alert("hi");
 
-    for(let i = 701 ; i < 861 ; i++){
+    for(let i = 1 ; i < 200 ; i++){
         ayncsubmitHandlerGamePlay(i.toString());
     }
 
