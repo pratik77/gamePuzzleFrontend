@@ -103,6 +103,8 @@ export default function SignIn() {
   const [answers, setAnswers] = useState({});
   const [isFnameInvalid, setIsFnameInvalid] = useState("false");
   const [fnameInvalidMessage, setFnameInvalidMessage] = useState("");
+  const [isLnameInvalid, setIsLnameInvalid] = useState("false");
+  const [lnameInvalidMessage, setLnameInvalidMessage] = useState("");
   const [progressBarVal, setprogressBarVal] = useState("");
   const [disableLoginBtn, setDisableLoginBtn] = useState(false);
   const [disableAnswerSubmitBtn, setDisableAnswerSubmitBtn] = useState(false);
@@ -360,6 +362,11 @@ export default function SignIn() {
       setFnameInvalidMessage("Name cannot be blank.");
       return;
     }
+    if(lname == ""){
+      setIsLnameInvalid("true");
+      setLnameInvalidMessage("Display name cannot be blank.");
+      return;
+    }
     if(gamename.length > 6){
       setIsGamenameInvalid("true");
       setGamenameInvalidMsg("Employee Id must be a 6 digit number");
@@ -502,7 +509,7 @@ export default function SignIn() {
   if(questionNum != 0){
       return <Question onClick={handleAnswerSubmit} hasError={hasError} message={message} onChange={handleAnswerChange}
       giveUp={giveUpButton} onGiveUpClick={handleGiveUpClick} onGetBackToCurrentQuestion={handleGetBackToCurrentQuestion}
-      onGoToNextQuestion={handleGoToNextQuestion} questionNum={questionNum} name={fname + " " + lname} disableAnswerSubmitBtn={disableAnswerSubmitBtn} 
+      onGoToNextQuestion={handleGoToNextQuestion} questionNum={questionNum} name={fname} disableAnswerSubmitBtn={disableAnswerSubmitBtn} 
       answerSubmitProgressBarVal={answerSubmitProgressBarVal} avatar={avatar}/>;
     
   }
@@ -537,11 +544,13 @@ export default function SignIn() {
             margin="normal"
             fullWidth
             name="lname"
-            label="Last Name"
+            label="Display Name"
             type="text"
             id="lname"
             onChange={handleLnameChange}
             autoComplete="lname"
+            error={isLnameInvalid == "true"}
+            helperText={isLnameInvalid == "true" ? lnameInvalidMessage : ''}
           />
           <TextField
             className={classes.patternNumber}
