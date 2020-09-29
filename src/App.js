@@ -542,6 +542,7 @@ export default function SignIn() {
           />
           <TextField
             margin="normal"
+            required
             fullWidth
             name="lname"
             label="Display Name"
